@@ -1,6 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { ObjectId } from "mongodb";
 
-type Tcart = {}[];
+type Tcart = { _id: ObjectId }[];
 
 const initialState: Tcart = [];
 
@@ -11,7 +12,13 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       return [...state, action.payload];
     },
-    removeFromCart(state, action) {},
+    removeFromCart(state, action) {
+      const filteredCart = state.filter(
+        (item) => item._id !== action.payload._id
+      );
+
+      return filteredCart;
+    },
   },
 });
 

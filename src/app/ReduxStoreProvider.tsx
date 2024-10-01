@@ -4,7 +4,11 @@ import { AppStore, makeStore } from "@/redux/store";
 import { useRef } from "react";
 import { Provider } from "react-redux";
 
-const ReduxStoreProvider: React.FC<any> = ({
+interface ReduxStoreProviderProps {
+  children: React.ReactNode;
+}
+
+const ReduxStoreProvider: React.FC<ReduxStoreProviderProps> = ({
   children,
 }: {
   children: React.ReactNode;
