@@ -21,24 +21,24 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav
-      className="w-full h-[7.5rem] fixed top-0 bg-black/85 text-white flex flex-row flex-nowrap
-                items-center gap-5 px-14"
+      className="w-full h-auto md:h-[7.5rem] fixed top-0 bg-black/85 text-white flex flex-row flex-wrap md:flex-nowrap
+                items-center justify-center gap-5 p-4 md:px-14"
     >
       {/* company name */}
-      <div className="grow place-content-center text-start uppercase text-white/65 font-bold text-4xl">
+      <div className="grow place-content-center text-center md:text-start uppercase text-white/65 font-bold text-md lg:text-4xl">
         <Link href={"/"}>
           Nothing Personal Just<span className="text-white/100">Business</span>
         </Link>
       </div>
 
       {/* menu links */}
-      <ul className="flex flex-row flex-nowrap gap-2">
+      <ul className="w-full md:w-auto flex items-center justify-center flex-row flex-nowrap gap-2">
         {menu.map((l, i) => (
           <li
             key={`${l.name}_${i}`}
-            className="text-white/65 hover:text-white/100 transition-all duration-300 uppercase"
+            className="text-white/65 hover:text-white/100 transition-all duration-300 uppercase text-sm md:text-base"
           >
-            <Link href={l.url} className="p-5">
+            <Link href={l.url} className="p-3 md:p-5">
               {l.text}
             </Link>
           </li>
@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
       </ul>
 
       {/* search bar */}
-      <div className="group/searchbar w-40 h-12 flex justify-center items-center relative">
+      <div className="group/searchbar hidden w-40 h-12 md:flex justify-center items-center relative">
         <Input
           labelProps={{ htmlFor: "search" }}
           inputProps={{
