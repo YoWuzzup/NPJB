@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav
       className="w-full h-auto md:h-[7.5rem] fixed top-0 bg-black/85 text-white flex flex-row flex-wrap md:flex-nowrap
-                items-center justify-center gap-5 p-4 md:px-14"
+                items-center justify-center gap-5 p-4 md:px-14 z-50"
     >
       {/* company name */}
       <div className="grow place-content-center text-center md:text-start uppercase text-white/65 font-bold text-md lg:text-4xl">
