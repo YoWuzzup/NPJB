@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { useRef } from "react";
 
-import { Button } from "@/components/common/Button";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 export const ImagesSection: React.FC = () => {
