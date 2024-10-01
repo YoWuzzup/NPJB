@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { Input } from "../common/Input";
 
 import ClearIcon from "@mui/icons-material/Clear";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+
 import { changeFilter } from "@/redux/slices/filters";
 
 const menu = [
@@ -14,15 +16,16 @@ const menu = [
 
 export const Navbar: React.FC = () => {
   const searchValue = useAppSelector((st) => st.filters.search);
+  const cartLength = useAppSelector((st) => st.cart.length);
   const dispatch = useAppDispatch();
 
   return (
     <nav
       className="w-full h-[7.5rem] fixed top-0 bg-black/85 text-white flex flex-row flex-nowrap
-                    items-center gap-5"
+                items-center gap-5 px-14"
     >
       {/* company name */}
-      <div className="grow place-content-center text-start uppercase text-white/65 font-bold text-4xl ml-14">
+      <div className="grow place-content-center text-start uppercase text-white/65 font-bold text-4xl">
         <Link href={"/"}>
           Nothing Personal Just<span className="text-white/100">Business</span>
         </Link>
@@ -72,7 +75,15 @@ export const Navbar: React.FC = () => {
       </div>
 
       {/* cart */}
-      <div>cart</div>
+      <div className="group/cart">
+        <Link
+          href={"#"}
+          className="flex flex-nowrap flex-row gap-1 duration-300 text-white/65 group-hover/cart:text-white/100"
+        >
+          <ShoppingCartOutlinedIcon />
+          {cartLength}
+        </Link>
+      </div>
     </nav>
   );
 };
