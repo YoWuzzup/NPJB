@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ReduxStoreProvider from "./ReduxStoreProvider";
 
 export const metadata: Metadata = {
   title: "Nothing Personal Just Business",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <ReduxStoreProvider>
+        <body>{children}</body>
+      </ReduxStoreProvider>
     </html>
   );
 }
