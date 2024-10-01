@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsReducer from "./slices/products";
+import filtersReducer from "./slices/filters";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       products: productsReducer,
+      filters: filtersReducer,
     },
   });
 };
