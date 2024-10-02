@@ -27,7 +27,7 @@ export const ProductOnSale: React.FC<TProductOnSale> = ({
       <div className="group/productonsale border border-white/25">
         {/* image */}
         <div
-          className="w-[306px] h-[306px] bg-blend-multiply bg-center bg-cover"
+          className="w-full h-[306px] bg-blend-multiply bg-center bg-cover"
           style={{ backgroundImage: `url(${image})` }}
         ></div>
 
