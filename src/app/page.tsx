@@ -1,4 +1,5 @@
 import { AboutUsSection } from "@/components/sections/home/AboutUsSection";
+import { ContactSection } from "@/components/sections/home/ContactSection";
 import { ImagesSection } from "@/components/sections/home/ImagesSection";
 import { OnsaleSection } from "@/components/sections/home/OnsaleSection";
 
@@ -13,6 +14,7 @@ export default async function Home() {
       <ImagesSection />
       <OnsaleSection />
       <AboutUsSection />
+      <ContactSection />
     </main>
   );
 }

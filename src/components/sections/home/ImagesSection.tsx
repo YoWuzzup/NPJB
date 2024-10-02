@@ -59,7 +59,6 @@ export const ImagesSection: React.FC = () => {
 
       {/* third image */}
       <div
-        ref={targetSectionRef}
         className="hidden md:block h-[700px] w-full md:w-1/2 bg-cover bg-center"
         style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
       ></div>
