@@ -1,6 +1,7 @@
 import { AboutUsSection } from "@/components/sections/home/AboutUsSection";
 import { ContactSection } from "@/components/sections/home/ContactSection";
 import { ImagesSection } from "@/components/sections/home/ImagesSection";
+import { MailingSection } from "@/components/sections/home/MailingSection";
 import { OnsaleSection } from "@/components/sections/home/OnsaleSection";
 
 export default async function Home() {
@@ -15,6 +16,7 @@ export default async function Home() {
       <OnsaleSection />
       <AboutUsSection />
       <ContactSection />
+      <MailingSection />
     </main>
   );
 }

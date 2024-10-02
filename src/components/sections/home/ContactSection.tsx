@@ -8,6 +8,34 @@ import { validateEmail } from "@/lib/utils";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 
+const inputs = [
+  {
+    label: "first name *",
+    input: {
+      id: "name",
+      name: "name",
+      type: "text",
+      autocomplete: "given-name",
+    },
+    containerClassName: "basis-0 grow flex flex-col",
+  },
+  {
+    label: "surname *",
+    input: {
+      id: "surname",
+      name: "surname",
+      type: "text",
+      autocomplete: "family-name",
+    },
+    containerClassName: "basis-0 grow flex flex-col",
+  },
+  {
+    label: "email *",
+    input: { id: "email", name: "email", type: "email", autocomplete: "email" },
+    containerClassName: "w-full flex flex-col",
+  },
+];
+
 export const ContactSection: React.FC = () => {
   const [fieldWithErrors, setFieldWithErrors] = useState<string[]>([]);
   const formData = useAppSelector((st) => st.contactForm);
@@ -41,106 +69,42 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-black py-28 px-40 gap-32 flex flex-row flex-nowrap justify-center items-start text-white">
+    <section className="w-full bg-black py-28 px-6 lg:px-40 gap-32 flex flex-col md:flex-row flex-nowrap justify-center items-start text-white">
       {/* left side with form */}
       <form
         id="contact"
         className="flex flex-row flex-wrap basis-0 grow justify-stretch items-center gap-7"
         onSubmit={handleSubmit}
       >
-        <div className="basis-0 grow flex flex-col">
-          <Input
-            labelProps={{
-              className: `${
-                fieldWithErrors.includes("name")
-                  ? "text-rose-500"
-                  : "text-white/100"
-              } capitalize text-xl mb-2 duration-300`,
-              children: "first name *",
-              htmlFor: "name",
-            }}
-            inputProps={{
-              onChange: handleChange,
-              id: "name",
-              name: "name",
-              type: "text",
-              className: `bg-black text-white py-2 px-3 outline-none border ${
-                fieldWithErrors.includes("name")
-                  ? "border-rose-500"
-                  : "border-white/100"
-              } hover:border-white/60 duration-300`,
-              value: formData.name || "",
-            }}
-          />
-        </div>
-        <div className="basis-0 grow flex flex-col">
-          <Input
-            labelProps={{
-              className: `${
-                fieldWithErrors.includes("surname")
-                  ? "text-rose-500"
-                  : "text-white/100"
-              } capitalize text-xl mb-2 duration-300`,
-              children: "surname *",
-              htmlFor: "surname",
-            }}
-            inputProps={{
-              onChange: handleChange,
-              id: "surname",
-              name: "surname",
-              type: "text",
-              className: `bg-black text-white py-2 px-3 outline-none border ${
-                fieldWithErrors.includes("surname")
-                  ? "border-rose-500"
-                  : "border-white/100"
-              } hover:border-white/60 duration-300`,
-              value: formData.surname || "",
-            }}
-          />
-        </div>
-        <div className="w-full flex flex-col">
-          <Input
-            labelProps={{
-              className: `${
-                fieldWithErrors.includes("email")
-                  ? "text-rose-500"
-                  : "text-white/100"
-              } capitalize text-xl mb-2 duration-300`,
-              children: "email *",
-              htmlFor: "email",
-            }}
-            inputProps={{
-              onChange: handleChange,
-              id: "email",
-              name: "email",
-              type: "email",
-              className: `bg-black text-white py-2 px-3 outline-none border ${
-                fieldWithErrors.includes("email")
-                  ? "border-rose-500"
-                  : "border-white/100"
-              } hover:border-white/60 duration-300`,
-              value: formData.email || "",
-            }}
-          />
-        </div>
-        <div className="w-full flex flex-col">
-          <Input
-            labelProps={{
-              className: "text-white capitalize text-xl mb-2",
-              children: "subject",
-              htmlFor: "subject",
-            }}
-            inputProps={{
-              onChange: handleChange,
-              id: "subject",
-              name: "subject",
-              type: "text",
-              className:
-                "bg-black text-white py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300",
-              value: formData.subject || "",
-            }}
-          />
-        </div>
+        {inputs.map((i, indx) => (
+          <div className={i.containerClassName} key={`${i.label}_${indx}`}>
+            <Input
+              labelProps={{
+                className: `${
+                  fieldWithErrors.includes(i.input.id)
+                    ? "text-rose-500"
+                    : "text-white/100"
+                } capitalize text-xl mb-2 duration-300`,
+                children: i.label,
+                htmlFor: i.input.id,
+              }}
+              inputProps={{
+                onChange: handleChange,
+                id: i.input.id,
+                name: i.input.name,
+                type: i.input.type,
+                autoComplete: i.input.autocomplete,
+                className: `bg-black text-white py-2 px-3 outline-none border ${
+                  fieldWithErrors.includes(i.input.id)
+                    ? "border-rose-500"
+                    : "border-white/100"
+                } hover:border-white/60 duration-300`,
+                value: formData[i.input.id] || "",
+              }}
+            />
+          </div>
+        ))}
+
         <div className="w-full flex flex-col">
           <label
             htmlFor="message"
@@ -155,7 +119,7 @@ export const ContactSection: React.FC = () => {
             className="bg-black text-white py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300"
             onChange={handleChange}
             value={formData.message || ""}
-          ></textarea>
+          />
         </div>
 
         {/* send button */}

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type TContactForm = {
+  [key: string]: string;
   name: string;
   surname: string;
   email: string;
-  subject?: string;
   message: string;
 };
 
@@ -12,7 +12,6 @@ const initialState: TContactForm = {
   name: "",
   surname: "",
   email: "",
-  subject: "",
   message: "",
 };
 
