@@ -1,13 +1,12 @@
 "use client";
 import Link from "next/link";
+import { ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { Input } from "../common/Input";
+import { changeNavSearch } from "@/redux/slices/navSearch";
 
 import ClearIcon from "@mui/icons-material/Clear";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
-import { changeFilter } from "@/redux/slices/filters";
-import { ChangeEvent } from "react";
+import { Input } from "../common/Input";
 
 const menu = [
   { name: "shop", text: "shop", url: "#" },
@@ -16,12 +15,12 @@ const menu = [
 ];
 
 export const Navbar: React.FC = () => {
-  const searchValue = useAppSelector((st) => st.filters.search);
+  const searchValue = useAppSelector((st) => st.navSearch);
   const cartLength = useAppSelector((st) => st.cart.length);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeFilter({ filter: e.target.name, value: e.target.value }));
+    dispatch(changeNavSearch(e.target.value));
   };
 
   return (
@@ -59,6 +58,7 @@ export const Navbar: React.FC = () => {
             id: "search",
             name: "search",
             placeholder: "search...",
+            value: searchValue,
             onChange: handleChange,
             className: `w-full h-full px-4 outline-none text-white bg-black/0 cursor-text border-b-2
                     duration-300
@@ -71,9 +71,7 @@ export const Navbar: React.FC = () => {
                 fontSize="small"
                 className="text-white/65 duration-300 rounded-full cursor-pointer
                 hover:text-white/100"
-                onClick={() =>
-                  dispatch(changeFilter({ filter: "search", value: "" }))
-                }
+                onClick={() => dispatch(changeNavSearch(""))}
               />
             )}
           </div>

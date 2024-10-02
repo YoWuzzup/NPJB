@@ -1,24 +1,27 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 type Tfilters = {
   search: string;
-  [key: string]: string;
+  category: string;
 };
 
-const initialState: Tfilters = { search: "" };
+const initialState: Tfilters = {
+  search: "",
+  category: "",
+};
 
 const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    changeFilter(
-      state,
-      action: PayloadAction<{ filter: string; value: string }>
-    ) {
-      state[action.payload.filter] = action.payload.value;
+    changeFilter(state, action) {
+      return { ...state, ...action.payload };
+    },
+    clearFilter() {
+      return initialState;
     },
   },
 });
 
-export const { changeFilter } = filtersSlice.actions;
+export const { changeFilter, clearFilter } = filtersSlice.actions;
 export default filtersSlice.reducer;

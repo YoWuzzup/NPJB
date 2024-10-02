@@ -4,6 +4,7 @@ import filtersReducer from "./slices/filters";
 import cartReducer from "./slices/cart";
 import contactFormReducer from "./slices/contactForm";
 import subscribeEmailReducer from "./slices/SubscribeEmail";
+import navSearchReducer from "./slices/navSearch";
 
 export const makeStore = () => {
   return configureStore({
@@ -13,6 +14,7 @@ export const makeStore = () => {
       cart: cartReducer,
       contactForm: contactFormReducer,
       subscribeEmail: subscribeEmailReducer,
+      navSearch: navSearchReducer,
     },
   });
 };
