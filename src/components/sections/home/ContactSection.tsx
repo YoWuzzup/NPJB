@@ -141,10 +141,10 @@ export const ContactSection: React.FC = () => {
       <div className="basis-0 grow">
         <h2 className="w-4/6 text-xl md:text-6xl uppercase mb-5">contact</h2>
         <p className="w-full text-md md:text-xl mb-10">
-          I'm a paragraph. Click here to add your own text and edit me. It's
-          easy. Just click “Edit Text” or double click me to add your own
-          content and make changes to the font. I'm a great place for you to
-          tell a story and let your users know a little more about you.
+          I&apos;m a paragraph. Click here to add your own text and edit me.
+          It&apos;s easy. Just click “Edit Text” or double click me to add your
+          own content and make changes to the font. I&apos;m a great place for
+          you to tell a story and let your users know a little more about you.
         </p>
 
         <a href="#" type="email" className="block text-md md:text-xl mb-2">
