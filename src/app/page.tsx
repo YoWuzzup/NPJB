@@ -1,3 +1,4 @@
+import { AboutUsSection } from "@/components/sections/home/AboutUsSection";
 import { ImagesSection } from "@/components/sections/home/ImagesSection";
 import { OnsaleSection } from "@/components/sections/home/OnsaleSection";
 
@@ -11,6 +12,7 @@ export default async function Home() {
     <main className="flex flex-col">
       <ImagesSection />
       <OnsaleSection />
+      <AboutUsSection />
     </main>
   );
 }
