@@ -1,4 +1,5 @@
 import { ImagesSection } from "@/components/sections/home/ImagesSection";
+import { OnsaleSection } from "@/components/sections/home/OnsaleSection";
 
 export default async function Home() {
   // import clientPromise from "@/lib/mongodb";
@@ -7,8 +8,9 @@ export default async function Home() {
   // const users = await db.collection("users").find({}).toArray();
 
   return (
-    <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <main className="flex flex-col">
       <ImagesSection />
+      <OnsaleSection />
     </main>
   );
 }
