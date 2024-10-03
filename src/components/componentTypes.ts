@@ -15,6 +15,7 @@ export type TProductInShop = {
   currency: string;
   _id: ObjectId | string;
   reviews: { rating: number }[];
+  date: Date | string;
 };
 
 export type TProductOnSale = {

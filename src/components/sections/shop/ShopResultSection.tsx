@@ -10,6 +10,7 @@ const items = [
     currency: "zl",
     _id: "1",
     reviews: [{ rating: 4 }, { rating: 5 }, { rating: 5 }],
+    date: "2024-10-1",
   },
   {
     name: "backpack",
@@ -19,6 +20,7 @@ const items = [
     currency: "zl",
     _id: "2",
     reviews: [{ rating: 4 }],
+    date: "2023-04-16",
   },
   {
     name: "backpack",
@@ -28,6 +30,7 @@ const items = [
     currency: "zl",
     _id: "3",
     reviews: [{ rating: 4 }],
+    date: "2023-04-16",
   },
   {
     name: "backpack",
@@ -37,6 +40,7 @@ const items = [
     currency: "zl",
     _id: "4",
     reviews: [{ rating: 4 }],
+    date: "2023-04-16",
   },
   {
     name: "backpack",
@@ -46,6 +50,7 @@ const items = [
     currency: "zl",
     _id: "5",
     reviews: [{ rating: 4 }],
+    date: "2023-04-16",
   },
 ];
 

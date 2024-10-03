@@ -9,9 +9,9 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Input } from "../common/Input";
 
 const menu = [
-  { name: "shop", text: "shop", url: "#" },
-  { name: "about", text: "about", url: "#" },
-  { name: "contact", text: "contact", url: "#" },
+  { name: "shop", text: "shop", url: "/shop" },
+  { name: "about", text: "about", url: "/about" },
+  { name: "contact", text: "contact", url: "/contact" },
 ];
 
 export const Navbar: React.FC = () => {
