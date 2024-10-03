@@ -1,13 +1,5 @@
 import Link from "next/link";
-import { HTMLAttributes, ReactNode } from "react";
-
-type TBreadcrumb = {
-  crumbs: {
-    name: string;
-    href: string;
-    svg?: ReactNode;
-  }[];
-} & HTMLAttributes<HTMLDivElement>;
+import { TBreadcrumb } from "../componentTypes";
 
 export const Breadcrumb: React.FC<TBreadcrumb> = ({ crumbs, ...props }) => {
   return (

@@ -1,11 +1,5 @@
-import { FC, ReactNode } from "react";
-
-type TDropdown = {
-  name: string;
-  items: ReactNode[];
-  isOpen: boolean;
-  toggleDropdown: () => void;
-};
+import { FC } from "react";
+import { TDropdown } from "../componentTypes";
 
 export const Dropdown: FC<TDropdown> = ({
   name,

@@ -1,10 +1,5 @@
-import { FC, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from "react";
-
-type TInput = {
-  children?: ReactNode;
-  labelProps?: LabelHTMLAttributes<HTMLLabelElement>;
-  inputProps?: InputHTMLAttributes<HTMLInputElement>;
-};
+import { FC } from "react";
+import { TInput } from "../componentTypes";
 
 export const Input: FC<TInput> = ({ children, labelProps, inputProps }) => {
   return (

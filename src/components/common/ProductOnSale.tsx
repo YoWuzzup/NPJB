@@ -1,16 +1,7 @@
 import Link from "next/link";
-import { ObjectId } from "mongodb";
 
 import { Button } from "./Button";
-
-type TProductOnSale = {
-  name: string;
-  price: number;
-  discount: number;
-  image: string;
-  currency: string;
-  _id: ObjectId | string;
-};
+import { TProductOnSale } from "../componentTypes";
 
 export const ProductOnSale: React.FC<TProductOnSale> = ({
   name,
