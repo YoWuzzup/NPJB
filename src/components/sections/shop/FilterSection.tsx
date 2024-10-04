@@ -95,6 +95,7 @@ export const FilterSection: React.FC = () => {
               items={[
                 <div
                   className="capitalize"
+                  key={1}
                   onClick={() => {
                     handleSelect("");
                   }}
@@ -103,6 +104,7 @@ export const FilterSection: React.FC = () => {
                 </div>,
                 <div
                   className="capitalize"
+                  key={2}
                   onClick={() => {
                     handleSelect("medkits");
                   }}
@@ -111,6 +113,7 @@ export const FilterSection: React.FC = () => {
                 </div>,
                 <div
                   className="capitalize"
+                  key={3}
                   onClick={() => {
                     handleSelect("backpacks");
                   }}
