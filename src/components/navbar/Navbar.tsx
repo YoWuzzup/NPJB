@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <nav
-      className="w-full h-auto md:h-[7.5rem] fixed top-0 bg-black/85 text-white flex flex-row flex-wrap md:flex-nowrap
+      className="w-full h-40 md:h-28 fixed top-0 bg-black/85 text-white flex flex-row flex-wrap md:flex-nowrap
                 items-center justify-center gap-5 p-4 md:px-14 z-50"
     >
       {/* company name */}
