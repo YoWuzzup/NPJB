@@ -56,13 +56,13 @@ const items = [
 
 export const ShopResultSection: React.FC = () => {
   return (
-    <section className="w-full flex flex-row md:flex-col gap-5">
-      <h3 className="capitalize text-white text-xl md:text-6xl font-bold py-4">
+    <section className="w-full flex flex-row flex-wrap md:flex-col justify-center gap-5">
+      <h3 className="capitalize w-5/6 sm:w-full text-white text-xl md:text-6xl font-bold py-4">
         all products
       </h3>
 
       {/* list of all fetched products */}
-      <div className="w-full grid grid-cols-3 gap-7">
+      <div className="w-5/6 sm:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
         {items.map((p, indx) => {
           // TODO: rewrite key
           return <ProductInShop {...p} key={indx} />;
