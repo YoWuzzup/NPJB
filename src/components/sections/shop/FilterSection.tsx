@@ -1,5 +1,5 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { changeFilter, clearFilter } from "@/redux/slices/filters";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useWindowSize } from "usehooks-ts";
@@ -16,7 +16,12 @@ export const FilterSection: React.FC = () => {
   const dispatch = useAppDispatch();
   const { width } = useWindowSize();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [filterisOpen, setFilterIsOpen] = useState<boolean>(true);
+  const [filterisOpen, setFilterIsOpen] = useState<boolean>(false);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const toggleFilter = () => {
     setFilterIsOpen((prev) => !prev);
@@ -42,7 +47,7 @@ export const FilterSection: React.FC = () => {
   return (
     <section className={`w-full relative`}>
       {/* sclose button on small devices */}
-      {width < 768 ? (
+      {isClient && width < 768 ? (
         <div
           className={`absolute right-0 top-5 aspect-square w-10 text-white`}
           onClick={toggleFilter}

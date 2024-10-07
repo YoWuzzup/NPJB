@@ -10,7 +10,6 @@ import { Input } from "../common/Input";
 
 const menu = [
   { name: "shop", text: "shop", url: "/shop" },
-  { name: "about", text: "about", url: "/about" },
   { name: "contact", text: "contact", url: "/contact" },
 ];
 
