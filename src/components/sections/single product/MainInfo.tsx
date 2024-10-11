@@ -11,6 +11,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 export const MainInfo: FC = () => {
+  const [productInfoIsOpen, setProductInfoIsOpen] = useState<boolean>(false);
+  const [returnPolicyIsOpen, setRerurnPolicyIsOpen] = useState<boolean>(false);
   const [quantity, setQuantity] = useState(1);
   const discount = 13;
   const price = 50;
@@ -18,6 +20,14 @@ export const MainInfo: FC = () => {
   const priceWithDiscount = (price - price * (discount / 100) || price).toFixed(
     2
   );
+
+  const toggleProductInfo = () => {
+    setProductInfoIsOpen((prev) => !prev);
+  };
+
+  const toggleReturnPolicy = () => {
+    setRerurnPolicyIsOpen((prev) => !prev);
+  };
 
   const handleAddQuantity = () => {
     if (quantity >= 999) return;
@@ -89,7 +99,7 @@ export const MainInfo: FC = () => {
       </div>
 
       {/* buttons */}
-      <div className="flex flex-row flex-wrap w-full gap-4">
+      <div className="flex flex-row flex-wrap w-full gap-4 mb-5">
         <Button
           buttonProps={{
             className:
@@ -112,10 +122,24 @@ export const MainInfo: FC = () => {
       </div>
 
       {/*  product & return dropdowns */}
-      <div>
-        <div>
-          <h3>product info</h3>
-          <p>
+      <div className="flex flex-col items-center gap-5">
+        <div className="flex flex-col gap-3 items-start border-b border-b-white/60">
+          <h3
+            className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
+            onClick={toggleProductInfo}
+          >
+            product info
+            {productInfoIsOpen ? (
+              <AddIcon className={``} />
+            ) : (
+              <RemoveIcon className={``} />
+            )}
+          </h3>
+          <p
+            className={`text-base text-justify duration-300 overflow-hidden ${
+              productInfoIsOpen ? "h-[200px]" : "h-0"
+            }`}
+          >
             I&apos;m a product detail. I&apos;m a great place to add more
             information about your product such as sizing, material, care and
             cleaning instructions. This is also a great space to write what
@@ -124,7 +148,31 @@ export const MainInfo: FC = () => {
             purchase, so give them as much information as possible so they can
             buy with confidence and certainty.
           </p>
-          <AddIcon />
+        </div>
+
+        <div className="flex flex-col gap-3 items-start border-b border-b-white/60">
+          <h3
+            className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
+            onClick={toggleReturnPolicy}
+          >
+            RETURN AND REFUND POLICY
+            {returnPolicyIsOpen ? (
+              <AddIcon className={`text-inherit`} />
+            ) : (
+              <RemoveIcon className={`text-inherit`} />
+            )}
+          </h3>
+          <p
+            className={`text-base text-justify duration-300 overflow-hidden ${
+              returnPolicyIsOpen ? "h-[200px]" : "h-0"
+            }`}
+          >
+            I&apos;m a Return and Refund policy. I&apos;m a great place to let
+            your customers know what to do in case they are dissatisfied with
+            their purchase. Having a straightforward refund or exchange policy
+            is a great way to build trust and reassure your customers that they
+            can buy with confidence.
+          </p>
         </div>
       </div>
     </div>

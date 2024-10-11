@@ -47,7 +47,7 @@ export const Rating: FC<TRating> = ({ data }) => {
   });
 
   return (
-    <div className="flex items-center ">
+    <div className="flex items-center">
       {stars}
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
         {average.toFixed(2)}
