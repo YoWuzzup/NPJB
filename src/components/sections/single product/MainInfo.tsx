@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useRef, useState } from "react";
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Rating } from "@/components/common/Rating";
@@ -13,6 +13,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 export const MainInfo: FC = () => {
   const [productInfoIsOpen, setProductInfoIsOpen] = useState<boolean>(false);
   const [returnPolicyIsOpen, setRerurnPolicyIsOpen] = useState<boolean>(false);
+  const productRef = useRef<HTMLParagraphElement>(null);
+  const returnRef = useRef<HTMLParagraphElement>(null);
   const [quantity, setQuantity] = useState(1);
   const discount = 13;
   const price = 50;
@@ -42,10 +44,10 @@ export const MainInfo: FC = () => {
   };
 
   return (
-    <div className="w-1/2 text-white flex flex-col gap-4">
-      <h2 className="uppercase text-3xl">CANVAS BACKPACK</h2>
+    <div className="w-full text-white flex flex-col gap-4">
+      <h2 className="uppercase text-xl md:text-3xl">CANVAS BACKPACK</h2>
       <Rating data={[5, 4, 5, 5]} />
-      <div className="flex flex-row flex-nowrap gap-3 text-3xl">
+      <div className="flex flex-row flex-nowrap gap-3 text-xl md:text-3xl">
         {discount ? (
           <>
             <span className={`line-through`}>
@@ -108,7 +110,9 @@ export const MainInfo: FC = () => {
         >
           add to cart
         </Button>
-        <Button buttonProps={{ className: "w-[50px] h-[50px] border" }}>
+        <Button
+          buttonProps={{ className: "w-full md:w-[50px] h-[50px] border" }}
+        >
           <FavoriteBorderIcon />
         </Button>
         <Button
@@ -123,22 +127,22 @@ export const MainInfo: FC = () => {
 
       {/*  product & return dropdowns */}
       <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col gap-3 items-start border-b border-b-white/60">
+        <div className="flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
           <h3
             className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
             onClick={toggleProductInfo}
           >
             product info
-            {productInfoIsOpen ? (
-              <AddIcon className={``} />
-            ) : (
-              <RemoveIcon className={``} />
-            )}
+            {productInfoIsOpen ? <AddIcon /> : <RemoveIcon />}
           </h3>
           <p
-            className={`text-base text-justify duration-300 overflow-hidden ${
-              productInfoIsOpen ? "h-[200px]" : "h-0"
-            }`}
+            ref={productRef}
+            style={{
+              height: productInfoIsOpen
+                ? `${productRef.current?.scrollHeight}px`
+                : "0",
+            }}
+            className={`text-base text-justify duration-300 overflow-hidden`}
           >
             I&apos;m a product detail. I&apos;m a great place to add more
             information about your product such as sizing, material, care and
@@ -150,7 +154,7 @@ export const MainInfo: FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 items-start border-b border-b-white/60">
+        <div className="flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
           <h3
             className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
             onClick={toggleReturnPolicy}
@@ -163,9 +167,13 @@ export const MainInfo: FC = () => {
             )}
           </h3>
           <p
-            className={`text-base text-justify duration-300 overflow-hidden ${
-              returnPolicyIsOpen ? "h-[200px]" : "h-0"
-            }`}
+            ref={returnRef}
+            style={{
+              height: returnPolicyIsOpen
+                ? `${returnRef.current?.scrollHeight}px`
+                : "0",
+            }}
+            className={`text-base text-justify duration-300 overflow-hidden`}
           >
             I&apos;m a Return and Refund policy. I&apos;m a great place to let
             your customers know what to do in case they are dissatisfied with

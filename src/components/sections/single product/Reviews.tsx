@@ -12,9 +12,9 @@ export const Reviews: FC = () => {
   return (
     <div className="w-full flex flex-col text-white">
       {/* all reviews statistics */}
-      <div className="flex flex-row justify-between w-full py-10 border-b border-b-white/60">
+      <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between w-full py-10 border-b border-b-white/60">
         {/* left side of statistics */}
-        <div className="flex flex-col items-start gap-4 w-1/2">
+        <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-4">
           <h2 className="capitalize text-2xl font-semibold">reviews</h2>
           <Rating data={reviews} />
           <div className="first-letter:uppercase">
@@ -24,7 +24,7 @@ export const Reviews: FC = () => {
           <Button
             buttonProps={{
               className:
-                "w-[260px] h-[50px] capitalize text-xl border grow hover:text-white/25 duration-300",
+                "w-[200px] md:w-[260px] h-[50px] capitalize text-xl border hover:text-white/25 duration-300",
             }}
           >
             leave a review
@@ -32,16 +32,16 @@ export const Reviews: FC = () => {
         </div>
 
         {/* right side of statistics */}
-        <div className="w-1/2 flex flex-col-reverse items-start justify-center gap-4">
+        <div className="w-full md:w-1/2 flex flex-col-reverse items-start justify-center gap-4">
           {[1, 2, 3, 4, 5].map((n, i) => {
             const lineWidth = `${n * 10}%`;
 
             return (
               <div
                 key={`${n}_${i}`}
-                className="w-full flex flex-row items-center flex-nowrap"
+                className="w-full flex flex-row items-center justify-center flex-nowrap"
               >
-                <div className="w-1/6 text-right">
+                <div className="w-2/12 md:w-3/12 text-right">
                   {n} star{n !== 1 && "s"}
                 </div>
 
@@ -52,7 +52,7 @@ export const Reviews: FC = () => {
                   ></div>
                 </div>
 
-                <div className="w-1/6 text-left">{4}</div>
+                <div className="w-1/12 text-left">{4}</div>
               </div>
             );
           })}
@@ -79,7 +79,7 @@ export const Reviews: FC = () => {
               <h3 className="font-bold text-xl mb-4 first-letter:uppercase">
                 header
               </h3>
-              <p className="first-letter:uppercase">
+              <p className="first-letter:uppercase text-justify">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est
                 pariatur harum perspiciatis quod dolore, officiis dolor vero
                 quae nesciunt, voluptate natus veniam, assumenda minima! Minima
