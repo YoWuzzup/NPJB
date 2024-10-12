@@ -14,7 +14,7 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 type SliderProps = {
   slides: { src: string; alt: string }[];
-  secondSlides: { src: string; alt: string }[];
+  secondSlides?: { src: string; alt: string }[];
   swiperOptions?: SwiperOptions & {
     style?: React.CSSProperties;
     className?: string;
@@ -73,7 +73,7 @@ export default function Slider({
         ))}
       </Swiper>
 
-      {secondSlides.length > 0 && (
+      {secondSlides && secondSlides.length > 0 && (
         //  Second Swiper (Thumbnails)
         <Swiper onSwiper={setThumbsSwiper} {...mergedSecondOptions}>
           {secondSlides.map((s, i) => (
