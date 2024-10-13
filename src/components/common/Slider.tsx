@@ -18,11 +18,13 @@ type SliderProps = {
   swiperOptions?: SwiperOptions & {
     style?: React.CSSProperties;
     className?: string;
+    onSwiper?: (s: any) => void;
   };
   secondSwiperOptions?: SwiperOptions & {
     style?: React.CSSProperties;
     className?: string;
   };
+  children?: React.ReactNode;
 };
 
 export default function Slider({
@@ -30,6 +32,7 @@ export default function Slider({
   secondSlides,
   swiperOptions,
   secondSwiperOptions,
+  children,
 }: SliderProps) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore | null>(null);
 
@@ -71,6 +74,7 @@ export default function Slider({
             <img src={`${s.src}`} alt={`${s.alt}`} />
           </SwiperSlide>
         ))}
+        {children}
       </Swiper>
 
       {secondSlides && secondSlides.length > 0 && (

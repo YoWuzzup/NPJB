@@ -1,13 +1,39 @@
-import Slider from "@/components/common/Slider";
-import { FC } from "react";
-import { Navigation } from "swiper/modules";
+"use client";
+import { FC, useRef } from "react";
+import SwiperCore from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import { useWindowSize } from "usehooks-ts";
+
+const slides = [
+  { src: "/static/Tactical Backpack.jpg", alt: "1" },
+  { src: "/static/Tactical Backpack.jpg", alt: "2" },
+  { src: "/static/Tactical Backpack.jpg", alt: "3" },
+  { src: "/static/Tactical Backpack.jpg", alt: "4" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+  { src: "/static/Tactical Backpack.jpg", alt: "5" },
+];
 
 // TODO: fetch items
 export const MightLike: FC = () => {
-  const items = [1, 2, 3, 4, 5];
+  const swiperRef = useRef<SwiperCore | null>();
+  const { width } = useWindowSize();
+
+  const swiperOptions = {
+    slidesPerView: width < 600 ? 1 : width < 1000 ? 3 : 5,
+    spaceBetween: 30,
+    className: "w-[80%]",
+    onSwiper: (swiper: any) => {
+      swiperRef.current = swiper;
+    },
+  };
 
   return (
     <div className="w-full flex flex-col text-white bg-black py-9">
@@ -15,31 +41,29 @@ export const MightLike: FC = () => {
         you might also like
       </h2>
 
-      <Slider
-        slides={[
-          { src: "/static/Tactical Backpack.jpg", alt: "1" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-          { src: "/static/Tactical Backpack.jpg", alt: "2" },
-        ]}
-        swiperOptions={{
-          slidesPerView: 5,
-          spaceBetween: 30,
-          className: "w-8/12",
-          wrapperClass: "w-full",
-          navigation: {
-            nextEl: ".my-custom-next",
-            prevEl: ".my-custom-prev",
-          },
-        }}
-      >
-        <div className="my-custom-next">Next</div>
-        <div className="my-custom-prev">Previous</div>
-      </Slider>
+      {/* swiper */}
+      <div className="w-full relative">
+        <Swiper {...swiperOptions}>
+          {slides.map((s, i) => (
+            <SwiperSlide key={`${s.alt}_${i}`}>
+              <img src={`${s.src}`} alt={`${s.alt}`} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <div
+          className={`absolute p-3 top-1/2 -translate-y-1/2 left-20 cursor-pointer text-white/60`}
+          onClick={() => swiperRef?.current?.slidePrev()}
+        >
+          <NavigateBeforeIcon />
+        </div>
+        <div
+          className={`absolute p-3 top-1/2 -translate-y-1/2 right-20 cursor-pointer text-white/60`}
+          onClick={() => swiperRef?.current?.slideNext()}
+        >
+          <NavigateNextIcon />
+        </div>
+      </div>
     </div>
   );
 };
