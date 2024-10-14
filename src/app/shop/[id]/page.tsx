@@ -18,7 +18,6 @@ export default async function SingleProduct() {
               {
                 name: "home",
                 href: "/",
-                svg: breadcrumbIcon,
               },
               {
                 name: "shop",

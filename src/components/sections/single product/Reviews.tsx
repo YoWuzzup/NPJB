@@ -21,12 +21,7 @@ export const Reviews: FC = () => {
             based on {reviews.length} reviews
           </div>
           {/* TODO: make handleClick to write a review */}
-          <Button
-            buttonProps={{
-              className:
-                "w-[200px] md:w-[260px] h-[50px] capitalize text-xl border hover:text-white/25 duration-300",
-            }}
-          >
+          <Button className="w-[200px] md:w-[260px] h-[50px] capitalize text-xl border hover:text-white/25 duration-300">
             leave a review
           </Button>
         </div>

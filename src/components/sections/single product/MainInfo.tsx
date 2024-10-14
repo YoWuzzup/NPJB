@@ -79,20 +79,14 @@ export const MainInfo: FC = () => {
             }}
           >
             <Button
-              buttonProps={{
-                className:
-                  "text-black absolute flex justify-center items-center w-[40px] h-[20px] right-0 bottom-0",
-                onClick: handleSubtractQuantity,
-              }}
+              className="text-black absolute flex justify-center items-center w-[40px] h-[20px] right-0 bottom-0"
+              onClick={handleSubtractQuantity}
             >
               <ArrowDropDownIcon />
             </Button>
             <Button
-              buttonProps={{
-                className:
-                  "text-black absolute flex justify-center items-center w-[40px] h-[20px] right-0 top-0",
-                onClick: handleAddQuantity,
-              }}
+              className="text-black absolute flex justify-center items-center w-[40px] h-[20px] right-0 top-0"
+              onClick={handleAddQuantity}
             >
               <ArrowDropUpIcon />
             </Button>
@@ -102,25 +96,13 @@ export const MainInfo: FC = () => {
 
       {/* buttons */}
       <div className="flex flex-row flex-wrap w-full gap-4 mb-5">
-        <Button
-          buttonProps={{
-            className:
-              "w-[260px] h-[50px] capitalize text-xl border grow hover:text-white/25 duration-300",
-          }}
-        >
+        <Button className="w-[260px] h-[50px] capitalize text-xl border grow hover:text-white/25 duration-300">
           add to cart
         </Button>
-        <Button
-          buttonProps={{ className: "w-full md:w-[50px] h-[50px] border" }}
-        >
+        <Button className="w-full md:w-[50px] h-[50px] border">
           <FavoriteBorderIcon />
         </Button>
-        <Button
-          buttonProps={{
-            className:
-              "w-full h-[50px] capitalize text-xl text-black border bg-white hover:bg-white/60 duration-300",
-          }}
-        >
+        <Button className="w-full h-[50px] capitalize text-xl text-black border bg-white hover:bg-white/60 duration-300">
           buy now
         </Button>
       </div>

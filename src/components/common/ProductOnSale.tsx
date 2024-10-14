@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "./Button";
+
 import { TProductOnSale } from "../componentTypes";
 
 export const ProductOnSale: React.FC<TProductOnSale> = ({
@@ -25,11 +26,9 @@ export const ProductOnSale: React.FC<TProductOnSale> = ({
         {/* bottom info */}
         <div className="relative h-32">
           <Button
-            buttonProps={{
-              className: `group-hover/productonsale:opacity-100 opacity-0 w-[210px] border-white border-2 px-10 py-2 mb-10 
+            className={`group-hover/productonsale:opacity-100 opacity-0 w-[210px] border-white border-2 px-10 py-2 mb-10 
             text-white/100 text-xl capitalize duration-300 hover:text-white/75 absolute top-1/2 left-1/2 
-            -translate-x-1/2 -translate-y-1/2 z-0 group-hover/productonsale:z-10`,
-            }}
+            -translate-x-1/2 -translate-y-1/2 z-0 group-hover/productonsale:z-10`}
           >
             view details
           </Button>

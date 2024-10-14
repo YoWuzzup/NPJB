@@ -5,6 +5,7 @@ import {
   InputHTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
+  PropsWithChildren,
 } from "react";
 
 export type TProductInShop = {
@@ -35,10 +36,8 @@ export type TBreadcrumb = {
   }[];
 } & HTMLAttributes<HTMLDivElement>;
 
-export type TButton = {
-  children?: ReactNode;
-  buttonProps?: ButtonHTMLAttributes<HTMLButtonElement>;
-};
+export type TButton = ButtonHTMLAttributes<HTMLButtonElement> &
+  PropsWithChildren;
 
 export type TDropdown = {
   name: string;
@@ -48,10 +47,9 @@ export type TDropdown = {
 };
 
 export type TInput = {
-  children?: ReactNode;
+  inputProps: InputHTMLAttributes<HTMLInputElement>;
   labelProps?: LabelHTMLAttributes<HTMLLabelElement>;
-  inputProps?: InputHTMLAttributes<HTMLInputElement>;
-};
+} & PropsWithChildren;
 
 export type TRating = {
   data: number[];

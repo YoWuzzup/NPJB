@@ -1,4 +1,5 @@
 import { FC } from "react";
+
 import { TRating } from "../componentTypes";
 
 export const Rating: FC<TRating> = ({ data }) => {

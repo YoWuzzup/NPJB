@@ -125,12 +125,10 @@ export const ContactSection: React.FC = () => {
         {/* send button */}
         <div className="w-full flex flex-row flex-nowrap items-center justify-end">
           <Button
-            buttonProps={{
-              className: `w-1/2 bg-black text-2xl text-white/100 hover:text-white/60 py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300
-              capitalize`,
-              type: "submit",
-              form: "contact",
-            }}
+            className={`w-1/2 bg-black text-2xl text-white/100 hover:text-white/60 py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300
+              capitalize`}
+            type="submit"
+            form="contact"
           >
             send
           </Button>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { TBreadcrumb } from "../componentTypes";
 
 export const Breadcrumb: React.FC<TBreadcrumb> = ({ crumbs, ...props }) => {
@@ -17,7 +18,9 @@ export const Breadcrumb: React.FC<TBreadcrumb> = ({ crumbs, ...props }) => {
                   aria-current={undefined}
                 >
                   {c.svg && (
-                    <span className="mr-1 h-4 w-4 flex-shrink-0">{c.svg}</span>
+                    <span className="mr-1 h-4 w-4 flex-shrink-0 *:h-3 *:w-3 flex justify-center items-center">
+                      {c.svg}
+                    </span>
                   )}
                   {c.name}
                 </Link>

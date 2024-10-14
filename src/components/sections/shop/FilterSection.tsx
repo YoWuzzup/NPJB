@@ -133,12 +133,10 @@ export const FilterSection: React.FC = () => {
         </h3>
 
         <Button
-          buttonProps={{
-            className: `w-full border-white border-2 px-10 py-2 mb-10 
-            text-white/100 text-xl capitalize duration-300 hover:text-white/75`,
-            onClick: handleClearFilters,
-            type: "button",
-          }}
+          className={`w-full border-white border-2 px-10 py-2 mb-10 
+            text-white/100 text-xl capitalize duration-300 hover:text-white/75`}
+          onClick={handleClearFilters}
+          type="button"
         >
           clear filters
         </Button>

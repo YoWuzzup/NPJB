@@ -1,7 +1,8 @@
 import Link from "next/link";
 
-import { TProductInShop } from "../componentTypes";
 import { Rating } from "./Rating";
+
+import { TProductInShop } from "../componentTypes";
 
 export const ProductInShop: React.FC<TProductInShop> = ({
   name,

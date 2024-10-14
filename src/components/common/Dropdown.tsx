@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { TDropdown } from "../componentTypes";
+import { Button } from "./Button";
 
 export const Dropdown: FC<TDropdown> = ({
   name,
@@ -9,7 +10,7 @@ export const Dropdown: FC<TDropdown> = ({
 }) => {
   return (
     <div className="relative w-full">
-      <button
+      <Button
         id="dropdownButton"
         className="w-full text-white capitalize focus:outline-none font-medium text-sm px-5 py-2.5 text-center flex items-center justify-between border-b border-white/60"
         type="button"
@@ -32,7 +33,7 @@ export const Dropdown: FC<TDropdown> = ({
             d="m1 1 4 4 4-4"
           />
         </svg>
-      </button>
+      </Button>
 
       {/* Dropdown menu */}
       {isOpen && (

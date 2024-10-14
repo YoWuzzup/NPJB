@@ -68,12 +68,10 @@ export const MailingSection: React.FC = () => {
         </Input>
 
         <Button
-          buttonProps={{
-            className: `w-full bg-transparent text-2xl text-white/100 hover:text-white/60 py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300
-              uppercase`,
-            type: "button",
-            onClick: handleClick,
-          }}
+          className={`w-full bg-transparent text-2xl text-white/100 hover:text-white/60 py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300
+              uppercase`}
+          type="button"
+          onClick={handleClick}
         >
           subscribe now
         </Button>
