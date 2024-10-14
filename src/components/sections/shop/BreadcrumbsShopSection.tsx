@@ -10,7 +10,6 @@ export const BreadcrumbsShopSection: React.FC = () => {
           {
             name: "home",
             href: "/",
-            svg: breadcrumbIcon,
           },
           {
             name: "all products",

@@ -29,20 +29,27 @@ export const MightLike: FC = () => {
   const swiperOptions = {
     slidesPerView: width < 600 ? 1 : width < 1000 ? 3 : 5,
     spaceBetween: 30,
-    className: "w-[80%]",
+    className: "w-full",
     onSwiper: (swiper: any) => {
       swiperRef.current = swiper;
     },
   };
 
   return (
-    <div className="w-full flex flex-col text-white bg-black py-9">
+    <div className="w-full flex flex-col text-white bg-black py-12">
       <h2 className="capitalize w-full text-center font-bold text-2xl mb-9">
         you might also like
       </h2>
 
       {/* swiper */}
-      <div className="w-full relative">
+      <div className="w-full flex flex-row flex-nowrap justify-center items-center">
+        <div
+          className={`p-3 hidden sm:flex justify-center items-center w-1/12 cursor-pointer text-white/60`}
+          onClick={() => swiperRef?.current?.slidePrev()}
+        >
+          <NavigateBeforeIcon />
+        </div>
+
         <Swiper {...swiperOptions}>
           {slides.map((s, i) => (
             <SwiperSlide key={`${s.alt}_${i}`}>
@@ -52,13 +59,7 @@ export const MightLike: FC = () => {
         </Swiper>
 
         <div
-          className={`absolute p-3 top-1/2 -translate-y-1/2 left-20 cursor-pointer text-white/60`}
-          onClick={() => swiperRef?.current?.slidePrev()}
-        >
-          <NavigateBeforeIcon />
-        </div>
-        <div
-          className={`absolute p-3 top-1/2 -translate-y-1/2 right-20 cursor-pointer text-white/60`}
+          className={`p-3 hidden sm:flex justify-center items-center w-1/12 cursor-pointer text-white/60`}
           onClick={() => swiperRef?.current?.slideNext()}
         >
           <NavigateNextIcon />
