@@ -10,13 +10,22 @@ import {
 
 export type TProductInShop = {
   name: string;
-  price: number;
+  price: { USD: number; UAH: number };
   discount: number;
-  image: string;
-  currency: string;
-  _id: ObjectId | string;
-  reviews: { rating: number }[];
+  thumbnail: string;
+  publicId: ObjectId | string;
+  averageRating: number;
+  ratingLength: number;
+  createdAt: Date | string;
+};
+
+export type TReview = {
+  rating: number;
+  header: string;
+  message: string;
   date: Date | string;
+  product_id: string;
+  publicId: string;
 };
 
 export type TProductOnSale = {
@@ -52,5 +61,6 @@ export type TInput = {
 } & PropsWithChildren;
 
 export type TRating = {
-  data: number[];
+  length: number;
+  average: number;
 };

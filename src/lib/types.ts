@@ -25,6 +25,11 @@ export type TProduct = {
   createdAt: Date | string;
   updatedAt: Date | string;
   stock: number;
+
+  // added on the backend
+  thumbnail: string;
+  averageRating: number;
+  ratingLength: number;
 };
 
 export type TProductArray = TProduct[];

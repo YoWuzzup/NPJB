@@ -4,33 +4,46 @@ import { Rating } from "./Rating";
 
 import { TProductInShop } from "../componentTypes";
 
+const ProductPriceDisplay: React.FC<{ price: number; currency: string }> = ({
+  price,
+  currency,
+}) => {
+  return (
+    <>
+      {price} {currency}
+    </>
+  );
+};
+
 export const ProductInShop: React.FC<TProductInShop> = ({
   name,
   price,
   discount,
-  image,
-  currency,
-  _id,
-  reviews,
-  date,
+  publicId,
+  thumbnail,
+  createdAt,
+  ratingLength,
+  averageRating,
 }) => {
-  const priceWithDiscount = price - price * (discount / 100) || price;
-  const ratingNumberArray = reviews.map((r) => r.rating || 5);
-  const givenDate = date instanceof Date ? date : new Date(date);
+  // TODO: make global and choosable currency
+  const cur = "USD";
+  const priceWithDiscount =
+    price[cur] - price[cur] * (discount / 100) || price.USD;
+  const givenDate = createdAt instanceof Date ? createdAt : new Date(createdAt);
   const now = new Date();
   const diffInTime = now.getTime() - givenDate.getTime();
   const diffInDays = diffInTime / (1000 * 3600 * 24);
 
   return (
     <Link
-      href={`/shop/${_id || ""}`}
+      href={`/shop/${publicId || ""}`}
       className="w-full scalse-100 hover:scale-110 duration-300"
     >
-      <div className="w-full relative border border-white/25">
+      <div className="w-full h-full relative border border-white/25 flex justify-between flex-col">
         {/* image */}
         <div
           className="w-full h-[306px] bg-blend-multiply bg-center bg-cover"
-          style={{ backgroundImage: `url(${image})` }}
+          style={{ backgroundImage: `url(${thumbnail || ""})` }}
         ></div>
 
         {/* new box */}
@@ -41,28 +54,29 @@ export const ProductInShop: React.FC<TProductInShop> = ({
         )}
 
         {/* bottom info */}
-        <div className="h-32 text-white">
+        <div className="text-white p-3 pb-5">
           <div
             className={`w-full text-center flex flex-col justify-center gap-2 items-center`}
           >
-            <div className="uppercase text-base">{name}</div>
+            <div className="uppercase text-sm">{name}</div>
             <div className="flex flex-row flex-nowrap gap-3">
               {discount ? (
                 <>
                   <span className={`line-through`}>
-                    {price} {currency}
+                    <ProductPriceDisplay price={price[cur]} currency={cur} />
                   </span>
-                  {priceWithDiscount} {currency}
+                  <ProductPriceDisplay
+                    price={priceWithDiscount}
+                    currency={cur}
+                  />
                 </>
               ) : (
-                <>
-                  {price} {currency}
-                </>
+                <ProductPriceDisplay price={price[cur]} currency={cur} />
               )}
             </div>
 
             {/* rating */}
-            <Rating data={ratingNumberArray} />
+            <Rating length={ratingLength} average={averageRating} />
           </div>
         </div>
       </div>

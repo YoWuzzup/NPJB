@@ -8,7 +8,18 @@ const productsSlice = createSlice({
   initialState,
   reducers: {
     addProducts(state, action) {
-      return action.payload;
+      // remove duplicates
+      let merged = [
+        ...state.filter(
+          (s) =>
+            !action.payload.some(
+              (newItem: any) => newItem.publicId === s.publicId
+            )
+        ),
+        ...action.payload,
+      ];
+
+      return merged;
     },
   },
 });
