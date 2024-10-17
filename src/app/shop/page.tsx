@@ -8,14 +8,25 @@ import { FilterSection } from "@/components/sections/shop/FilterSection";
 import { ShopResultSection } from "@/components/sections/shop/ShopResultSection";
 import { useAppDispatch } from "@/hooks/redux";
 import { addProducts } from "@/redux/slices/products";
+import { useSearchParams } from "next/navigation";
 
-// TODO: make a skeleton while loading & save items to redux
 export default function Shop() {
   const dispatch = useAppDispatch();
+  const params = useSearchParams();
+  const searchParams = params.get("search");
+  const categoryParams = params.get("category");
+
   const { error, isLoading } = useQuery({
-    queryKey: ["products"],
+    queryKey: [searchParams, categoryParams],
     queryFn: async () => {
-      const response = await axios.get("/api/products");
+      const queryParams = {
+        search: searchParams,
+        category: categoryParams,
+      };
+
+      const response = await axios.get("/api/products", {
+        params: { ...queryParams },
+      });
 
       dispatch(addProducts(response.data));
 
@@ -37,7 +48,7 @@ export default function Shop() {
 
       {/* products' side */}
       <div className="flex-1">
-        <ShopResultSection />
+        <ShopResultSection error={error} isLoading={isLoading} />
       </div>
     </main>
   );

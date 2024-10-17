@@ -1,8 +1,12 @@
 import { useAppSelector } from "@/hooks/redux";
 
 import { ProductInShop } from "@/components/common/ProductInShop";
+import { ProductSkeleton } from "@/components/common/ProductSkeleton";
 
-export const ShopResultSection: React.FC = () => {
+export const ShopResultSection: React.FC<{
+  error: Error | null;
+  isLoading: boolean;
+}> = ({ error, isLoading }) => {
   const products = useAppSelector((st) => st.products);
 
   return (
@@ -13,9 +17,17 @@ export const ShopResultSection: React.FC = () => {
 
       {/* list of all fetched products */}
       <div className="w-5/6 sm:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-        {products.map((p, indx) => {
-          return <ProductInShop {...p} key={`${p.name}_${indx}`} />;
-        })}
+        {isLoading ? (
+          [1, 2, 3].map((n, i) => <ProductSkeleton key={`${n}_${i}`} />)
+        ) : error ? (
+          <div className="w-full text-base md:text-2xl text-white">
+            Something went wrong, try again later...
+          </div>
+        ) : (
+          products.map((p, indx) => {
+            return <ProductInShop {...p} key={`${p.name}_${indx}`} />;
+          })
+        )}
       </div>
     </section>
   );

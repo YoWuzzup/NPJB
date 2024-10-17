@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import { TRating } from "../componentTypes";
 
-export const Rating: FC<TRating> = ({ length, average }) => {
+export const Rating: FC<TRating> = ({ length, average = 5 }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const isFullStar = average >= index + 1;
     const isPartialStar = average > index && average < index + 1;

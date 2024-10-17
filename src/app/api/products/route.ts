@@ -5,7 +5,7 @@ import clientPromise from "@/lib/mongodb";
 import { TProduct } from "@/lib/types";
 import { TReview } from "@/components/componentTypes";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const client: MongoClient = await clientPromise;
 
@@ -13,10 +13,36 @@ export async function GET() {
     const collection: Collection<TProduct> = db.collection("products");
     const reviews: Collection<TReview> = db.collection("reviews");
 
+    // Parse the request URL to get query parameters
+    const parameters = new URL(request.url);
+    const search = parameters.searchParams.get("search") || "";
+    const category = parameters.searchParams.get("category") || "";
+    console.log(parameters);
+
+    // Fetch products with optional filters based on query parameters
+    const filter: any = {};
+
+    // If the search parameter is present, add an $or condition to search across multiple fields
+    if (search) {
+      filter.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { manufacture: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    // If the category parameter is present, match it with any of the specified fields
+    if (category) {
+      filter.$or = [
+        { category: category },
+        { subCategory: category },
+        { tags: category },
+      ];
+    }
     // Fetch all products with the specified fields
     const products = await collection
       .find(
-        {},
+        { ...filter },
         {
           projection: {
             _id: 0,
