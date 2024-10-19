@@ -18,7 +18,7 @@ export const ImagesSection: React.FC = () => {
       {/* first image */}
       <div
         className="h-[700px] md:h-screen w-full relative bg-cover bg-center"
-        style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
+        style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
       >
         <div className="absolute inset-0 flex flex-col justify-center items-center gap-6">
           <h1 className="uppercase text-white text-lg sm:text-6xl font-bold font-serif text-center">
@@ -60,14 +60,14 @@ export const ImagesSection: React.FC = () => {
       {/* third image */}
       <div
         className="hidden md:block h-[700px] w-full md:w-1/2 bg-cover bg-center"
-        style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
+        style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
       ></div>
 
       {/* fourth image */}
       <div className="group/fourth h-[385px] w-full md:w-1/3 relative overflow-hidden">
         <div
           className="h-full w-full bg-cover bg-center scale-100 group-hover/fourth:scale-110 duration-500"
-          style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
+          style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
         <Link href={"#"}>
           <div
@@ -83,7 +83,7 @@ export const ImagesSection: React.FC = () => {
       <div className="group/fifth h-[385px] w-full md:w-1/3 relative overflow-hidden">
         <div
           className="h-full w-full bg-cover bg-center scale-100 group-hover/fifth:scale-110 duration-500"
-          style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
+          style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
         <Link href={"#"}>
           <div
@@ -99,7 +99,7 @@ export const ImagesSection: React.FC = () => {
       <div className="group/sixth h-[385px] w-full md:w-1/3 relative overflow-hidden">
         <div
           className="h-full w-full bg-cover bg-center scale-100 group-hover/sixth:scale-110 duration-500"
-          style={{ backgroundImage: "url('/static/Tactical Backpack.jpg')" }}
+          style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
         <Link href={"#"}>
           <div

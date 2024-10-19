@@ -1,7 +1,7 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { changeSubscribeEmail } from "@/redux/slices/SubscribeEmail";
+import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 
 import { Input } from "@/components/common/Input";
 

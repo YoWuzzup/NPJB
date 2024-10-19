@@ -24,7 +24,7 @@ export default function Shop() {
         category: categoryParams,
       };
 
-      const response = await axios.get("/api/products", {
+      const response = await axios.get("/api/shop", {
         params: { ...queryParams },
       });
 

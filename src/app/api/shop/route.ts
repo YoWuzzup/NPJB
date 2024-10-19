@@ -17,28 +17,25 @@ export async function GET(request: Request) {
     const parameters = new URL(request.url);
     const search = parameters.searchParams.get("search") || "";
     const category = parameters.searchParams.get("category") || "";
-    console.log(parameters);
 
-    // Fetch products with optional filters based on query parameters
+    // Optional filters based on query parameters
     const filter: any = {};
 
     // If the search parameter is present, add an $or condition to search across multiple fields
     if (search) {
+      const seachStringRegex = new RegExp(search, "i");
       filter.$or = [
-        { name: { $regex: search, $options: "i" } },
-        { description: { $regex: search, $options: "i" } },
-        { manufacture: { $regex: search, $options: "i" } },
+        { name: { $regex: seachStringRegex } },
+        { description: { $regex: seachStringRegex } },
+        { manufacture: { $regex: seachStringRegex } },
       ];
     }
 
     // If the category parameter is present, match it with any of the specified fields
     if (category) {
-      filter.$or = [
-        { category: category },
-        { subCategory: category },
-        { tags: category },
-      ];
+      filter.category = { $in: [category] };
     }
+
     // Fetch all products with the specified fields
     const products = await collection
       .find(

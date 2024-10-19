@@ -1,12 +1,31 @@
-import { Breadcrumb } from "@/components/common/Breadcrumb";
+"use client";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
-import { breadcrumbIcon } from "../../../../public/static/breadcrumbIcon";
 import ProductSlider from "@/components/sections/single product/ProductSlider";
 import { MainInfo } from "@/components/sections/single product/MainInfo";
 import { Reviews } from "@/components/sections/single product/Reviews";
 import { MightLike } from "@/components/sections/single product/MightLike";
+import { Breadcrumb } from "@/components/common/Breadcrumb";
 
-export default async function SingleProduct() {
+import { breadcrumbIcon } from "../../../../public/static/breadcrumbIcon";
+
+export default function SingleProduct({ params }: { params: { id: string } }) {
+  const { error, isLoading } = useQuery({
+    queryKey: [params.id],
+    queryFn: async () => {
+      const response = await axios.get(`/api/shop/${params.id}`);
+
+      // dispatch(addProducts(response.data));
+
+      return "response.data";
+    },
+  });
+
+  // Handle loading or error states
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading product data</div>;
+
   return (
     <>
       <main className="flex flex-col pt-[164px] md:pt-[7.5rem] pb-2 px-2 sm:px-8 md:px-40 xl:px-80 bg-black">
