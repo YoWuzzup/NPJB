@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import globalsReducer from "./slices/globals";
 import productsReducer from "./slices/products";
 import singleProductReducer from "./slices/singleProduct";
 import filtersReducer from "./slices/filters";
@@ -11,6 +12,7 @@ import navSearchReducer from "./slices/navSearch";
 export const makeStore = () => {
   return configureStore({
     reducer: {
+      globals: globalsReducer,
       products: productsReducer,
       singleProduct: singleProductReducer,
       filters: filtersReducer,

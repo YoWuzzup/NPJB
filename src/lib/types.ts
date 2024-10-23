@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-
 export type TProduct = {
   name?: string;
   publicId?: string;

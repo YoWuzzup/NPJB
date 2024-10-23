@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { addSingleProduct } from "@/redux/slices/singleProduct";
 
 import ProductSlider from "@/components/sections/single product/ProductSlider";
@@ -13,11 +13,9 @@ import { Breadcrumb } from "@/components/common/Breadcrumb";
 
 import { breadcrumbIcon } from "../../../../public/static/breadcrumbIcon";
 
-// TODO: replace with default global values
-const lng = "en";
-
 export default function SingleProduct({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
+  const currentLanguage = useAppSelector((st) => st.globals.language);
 
   const {
     data: product,
@@ -38,6 +36,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
     },
   });
 
+  // TODO
   // Handle loading or error states
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading product data</div>;
@@ -73,7 +72,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <ProductSlider
               slides={product.imageUrls}
-              description={product.description[lng]}
+              description={product.description[currentLanguage]}
             />
           </div>
 
