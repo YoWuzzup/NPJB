@@ -2,6 +2,9 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
+import { useAppDispatch } from "@/hooks/redux";
+import { addSingleProduct } from "@/redux/slices/singleProduct";
+
 import ProductSlider from "@/components/sections/single product/ProductSlider";
 import { MainInfo } from "@/components/sections/single product/MainInfo";
 import { Reviews } from "@/components/sections/single product/Reviews";
@@ -10,15 +13,28 @@ import { Breadcrumb } from "@/components/common/Breadcrumb";
 
 import { breadcrumbIcon } from "../../../../public/static/breadcrumbIcon";
 
+// TODO: replace with default global values
+const lng = "en";
+
 export default function SingleProduct({ params }: { params: { id: string } }) {
-  const { error, isLoading } = useQuery({
+  const dispatch = useAppDispatch();
+
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: [params.id],
     queryFn: async () => {
-      const response = await axios.get(`/api/shop/${params.id}`);
+      try {
+        const response = await axios.get(`/api/shop/${params.id}`);
 
-      // dispatch(addProducts(response.data));
+        dispatch(addSingleProduct(response.data));
 
-      return "response.data";
+        return response.data;
+      } catch (error) {
+        dispatch(addSingleProduct(null));
+      }
     },
   });
 
@@ -29,8 +45,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
   return (
     <>
       <main className="flex flex-col pt-[164px] md:pt-[7.5rem] pb-2 px-2 sm:px-8 md:px-40 xl:px-80 bg-black">
-        {/* breadcrumbs and next buttons*/}
-        {/* TODO: next buttons */}
+        {/* breadcrumbs */}
         <div className="w-auto h-max pt-5 mb-10">
           <Breadcrumb
             crumbs={[
@@ -44,9 +59,8 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
                 svg: breadcrumbIcon,
               },
               {
-                // TODO: need the name of product
-                name: "Name",
-                href: "/shop/name",
+                name: product?.name || "product's name",
+                href: `/shop/${params.id}`,
                 svg: breadcrumbIcon,
               },
             ]}
@@ -57,7 +71,10 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
         <div className="w-full flex flex-col md:flex-row justify-center items-start gap-8 mb-10">
           {/* pictures */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
-            <ProductSlider />
+            <ProductSlider
+              slides={product.imageUrls}
+              description={product.description[lng]}
+            />
           </div>
 
           {/* oderding information */}

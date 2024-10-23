@@ -1,19 +1,27 @@
-import { NextResponse } from "next/server";
-import { Collection, Db, MongoClient } from "mongodb";
+import { NextRequest, NextResponse } from "next/server";
+import { MongoClient, Db } from "mongodb";
 
 import clientPromise from "@/lib/mongodb";
 import { TProduct } from "@/lib/types";
-import { TReview } from "@/components/componentTypes";
 
-export async function GET(request: Request) {
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     const client: MongoClient = await clientPromise;
+    const publicId = params.id;
 
     const db: Db = client.db("products");
-    const collection: Collection<TProduct> = db.collection("products");
-    const reviews: Collection<TReview> = db.collection("reviews");
+    const product = await db
+      .collection<TProduct>("products")
+      .findOne({ publicId });
 
-    return NextResponse.json("asd");
+    if (!product) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(product);
   } catch (error) {
     console.error("Error fetching product_id:", error);
     return NextResponse.json(
