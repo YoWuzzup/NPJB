@@ -8,17 +8,6 @@ import {
   PropsWithChildren,
 } from "react";
 
-export type TProductInShop = {
-  name: string;
-  price: { USD: number; UAH: number };
-  discount: number;
-  thumbnail: string;
-  publicId: ObjectId | string;
-  averageRating: number;
-  ratingLength: number;
-  createdAt: Date | string;
-};
-
 export type TReview = {
   rating: number;
   header: string;

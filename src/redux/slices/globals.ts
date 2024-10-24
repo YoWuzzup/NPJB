@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: { language: string } = {
+const initialState: { language: string; currency: "USD" | "UAH" | "ZL" } = {
   language: "en",
+  currency: "USD",
 };
 
 const globalSlice = createSlice({

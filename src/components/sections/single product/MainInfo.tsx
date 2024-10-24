@@ -1,5 +1,6 @@
 "use client";
 import { FC, useRef, useState } from "react";
+
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
 import { Rating } from "@/components/common/Rating";
@@ -9,19 +10,32 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
+import { useAppSelector } from "@/hooks/redux";
 
-export const MainInfo: FC = () => {
+export const MainInfo: FC<{
+  name: string;
+  length: number;
+  average: number;
+  discount: number;
+  price: {
+    USD: number;
+    UAH: number;
+    ZL: number;
+  };
+  returnPolicy: string;
+}> = ({ name, length, average, discount, price, returnPolicy }) => {
+  const currency = useAppSelector((st) => st.globals.currency);
   const [productInfoIsOpen, setProductInfoIsOpen] = useState<boolean>(false);
   const [returnPolicyIsOpen, setRerurnPolicyIsOpen] = useState<boolean>(false);
+  const [quantity, setQuantity] = useState(1);
   const productRef = useRef<HTMLParagraphElement>(null);
   const returnRef = useRef<HTMLParagraphElement>(null);
-  const [quantity, setQuantity] = useState(1);
-  const discount = 13;
-  const price = 50;
-  const currency = "zl";
-  const priceWithDiscount = (price - price * (discount / 100) || price).toFixed(
-    2
-  );
+  // should convert coins to real money
+  const priceConverted = (price[currency] || price.USD) / 100;
+  const priceWithDiscount = (
+    priceConverted -
+    priceConverted * (discount / 100)
+  ).toFixed(2);
 
   const toggleProductInfo = () => {
     setProductInfoIsOpen((prev) => !prev);
@@ -45,19 +59,21 @@ export const MainInfo: FC = () => {
 
   return (
     <div className="w-full text-white flex flex-col gap-4">
-      <h2 className="uppercase text-xl md:text-3xl">CANVAS BACKPACK</h2>
-      <Rating data={[5, 4, 5, 5]} />
+      <h2 className="uppercase text-xl md:text-3xl">
+        {name || "Product's name"}
+      </h2>
+      <Rating length={length} average={average} />
       <div className="flex flex-row flex-nowrap gap-3 text-xl md:text-3xl">
         {discount ? (
           <>
             <span className={`line-through`}>
-              {price.toFixed(2)} {currency}
+              {priceConverted.toFixed(2)} {currency}
             </span>
             {priceWithDiscount} {currency}
           </>
         ) : (
           <>
-            {price.toFixed(2)} {currency}
+            {priceConverted.toFixed(2)} {currency}
           </>
         )}
       </div>
@@ -109,13 +125,13 @@ export const MainInfo: FC = () => {
 
       {/*  product & return dropdowns */}
       <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
+        <div className="w-full flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
           <h3
             className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
             onClick={toggleProductInfo}
           >
             product info
-            {productInfoIsOpen ? <AddIcon /> : <RemoveIcon />}
+            {productInfoIsOpen ? <RemoveIcon /> : <AddIcon />}
           </h3>
           <p
             ref={productRef}
@@ -126,6 +142,7 @@ export const MainInfo: FC = () => {
             }}
             className={`text-base text-justify duration-300 overflow-hidden`}
           >
+            {/* TODO: specifications */}
             I&apos;m a product detail. I&apos;m a great place to add more
             information about your product such as sizing, material, care and
             cleaning instructions. This is also a great space to write what
@@ -136,16 +153,16 @@ export const MainInfo: FC = () => {
           </p>
         </div>
 
-        <div className="flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
+        <div className="w-full flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
           <h3
             className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
             onClick={toggleReturnPolicy}
           >
             RETURN AND REFUND POLICY
             {returnPolicyIsOpen ? (
-              <AddIcon className={`text-inherit`} />
-            ) : (
               <RemoveIcon className={`text-inherit`} />
+            ) : (
+              <AddIcon className={`text-inherit`} />
             )}
           </h3>
           <p
@@ -157,11 +174,7 @@ export const MainInfo: FC = () => {
             }}
             className={`text-base text-justify duration-300 overflow-hidden`}
           >
-            I&apos;m a Return and Refund policy. I&apos;m a great place to let
-            your customers know what to do in case they are dissatisfied with
-            their purchase. Having a straightforward refund or exchange policy
-            is a great way to build trust and reassure your customers that they
-            can buy with confidence.
+            {returnPolicy || "Free shipping & free returns"}
           </p>
         </div>
       </div>

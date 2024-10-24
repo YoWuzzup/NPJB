@@ -2,7 +2,8 @@ import Link from "next/link";
 
 import { Rating } from "./Rating";
 
-import { TProductInShop } from "../componentTypes";
+import { TProduct } from "@/lib/types";
+import { useAppSelector } from "@/hooks/redux";
 
 const ProductPriceDisplay: React.FC<{ price: number; currency: string }> = ({
   price,
@@ -15,7 +16,7 @@ const ProductPriceDisplay: React.FC<{ price: number; currency: string }> = ({
   );
 };
 
-export const ProductInShop: React.FC<TProductInShop> = ({
+export const ProductInShop: React.FC<TProduct> = ({
   name,
   price,
   discount,
@@ -25,8 +26,7 @@ export const ProductInShop: React.FC<TProductInShop> = ({
   ratingLength,
   averageRating,
 }) => {
-  // TODO: make global and choosable currency
-  const cur = "USD";
+  const cur = useAppSelector((st) => st.globals.currency);
   const priceWithDiscount =
     price[cur] - price[cur] * (discount / 100) || price.USD;
   const givenDate = createdAt instanceof Date ? createdAt : new Date(createdAt);
@@ -76,7 +76,7 @@ export const ProductInShop: React.FC<TProductInShop> = ({
             </div>
 
             {/* rating */}
-            <Rating length={ratingLength} average={averageRating} />
+            <Rating length={ratingLength || 0} average={averageRating || 5} />
           </div>
         </div>
       </div>

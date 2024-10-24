@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { MongoClient, Db } from "mongodb";
+import { MongoClient, Db, Collection } from "mongodb";
 
 import clientPromise from "@/lib/mongodb";
 import { TProduct } from "@/lib/types";
+import { TReview } from "@/components/componentTypes";
 
 export async function GET(
   request: NextRequest,
@@ -16,12 +17,25 @@ export async function GET(
     const product = await db
       .collection<TProduct>("products")
       .findOne({ publicId });
+    const reviews: Collection<TReview> = db.collection("reviews");
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
-    return NextResponse.json(product);
+    const productReviews = await reviews
+      .find({ product_id: product.publicId })
+      .toArray();
+
+    // Calculate the average rating
+    const ratingLength = product?.reviews?.length || 0;
+    const averageRating =
+      product?.reviews && product?.reviews?.length > 0
+        ? productReviews.reduce((sum, review) => sum + review.rating, 0) /
+          productReviews.length
+        : 5;
+
+    return NextResponse.json({ ...product, ratingLength, averageRating });
   } catch (error) {
     console.error("Error fetching product_id:", error);
     return NextResponse.json(

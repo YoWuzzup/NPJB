@@ -5,11 +5,12 @@ export type TProduct = {
     en: string;
     ua: string;
   };
-  price?: {
+  price: {
     USD: number;
     UAH: number;
+    ZL: number;
   };
-  discount?: number;
+  discount: number;
   imageUrls?: string[];
   // specifications for weight, length, height etc.
   specifications?: {};
@@ -19,10 +20,10 @@ export type TProduct = {
   manufacturer?: string;
   category?: string[];
   subCategory?: string[];
-  tags?: string[];
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
-  stock?: number;
+  tags: string[];
+  createdAt: Date | string;
+  updatedAt: Date | string;
+  stock: number;
 
   // added on the backend
   thumbnail?: string;
