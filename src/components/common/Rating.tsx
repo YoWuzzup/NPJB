@@ -47,11 +47,11 @@ export const Rating: FC<TRating> = ({ length, average = 5 }) => {
       <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
         {average.toFixed(2)}
       </p>
-      {length && (
+      {length ? (
         <p className="ms-1 text-sm font-medium text-gray-500 dark:text-gray-400">
-          ({length})
+          {`( ${length} )`}
         </p>
-      )}
+      ) : null}
     </div>
   );
 };

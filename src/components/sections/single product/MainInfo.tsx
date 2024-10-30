@@ -134,31 +134,32 @@ export const MainInfo: FC<{
 
       {/*  product & return dropdowns */}
       <div className="flex flex-col items-center gap-5">
-        <div className="w-full flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
-          <h3
-            className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
-            onClick={toggleProductInfo}
-          >
-            product info
-            {productInfoIsOpen ? <RemoveIcon /> : <AddIcon />}
-          </h3>
-          <p
-            ref={productRef}
-            style={{
-              height: productInfoIsOpen
-                ? `${productRef.current?.scrollHeight}px`
-                : "0",
-            }}
-            className={`text-base text-justify duration-300 overflow-hidden capitalize *:my-1`}
-          >
-            {specifications &&
-              specifications.map((s, i) => (
+        {specifications && specifications.length > 0 ? (
+          <div className="w-full flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
+            <h3
+              className="uppercase text-lg flex justify-between w-full cursor-pointer text-white hover:text-white/60 duration-300"
+              onClick={toggleProductInfo}
+            >
+              product info
+              {productInfoIsOpen ? <RemoveIcon /> : <AddIcon />}
+            </h3>
+            <p
+              ref={productRef}
+              style={{
+                height: productInfoIsOpen
+                  ? `${productRef.current?.scrollHeight}px`
+                  : "0",
+              }}
+              className={`text-base text-justify duration-300 overflow-hidden capitalize *:my-1`}
+            >
+              {specifications?.map((s, i) => (
                 <span key={`${s}_${i}`} className="block">
                   {s}
                 </span>
               ))}
-          </p>
-        </div>
+            </p>
+          </div>
+        ) : null}
 
         <div className="w-full flex flex-col gap-3 items-start border-b border-b-white/60 pb-4">
           <h3

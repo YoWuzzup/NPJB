@@ -1,20 +1,24 @@
-import { FC } from "react";
+import { FC, useRef, useState } from "react";
 
 import { Rating } from "@/components/common/Rating";
 import { Button } from "@/components/common/Button";
 
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import { TReviewArray } from "@/lib/types";
+import { WriteReview } from "./WriteReview";
 
 export const Reviews: FC<{
   length: number;
   average: number;
   reviews: TReviewArray;
 }> = ({ length, average, reviews }) => {
+  const [newReviewIsOpen, setNewReviewIsOpen] = useState(false);
+  const newReviewRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="w-full flex flex-col text-white">
       {/* all reviews statistics */}
-      <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between w-full py-10 border-b border-b-white/60">
+      <div className="flex flex-col md:flex-row gap-5 md:gap-0 justify-between w-full py-8 my-3 border-b border-b-white/60">
         {/* left side of statistics */}
         <div className="w-full md:w-1/2 flex flex-col items-center md:items-start gap-4">
           <h2 className="capitalize text-2xl font-semibold">reviews</h2>
@@ -22,8 +26,10 @@ export const Reviews: FC<{
           <div className="first-letter:uppercase">
             based on {length} review{length === 1 || "s"}
           </div>
-          {/* TODO: make handleClick to write a review */}
-          <Button className="w-[200px] md:w-[260px] h-[50px] capitalize text-xl border hover:text-white/25 duration-300">
+          <Button
+            onClick={() => setNewReviewIsOpen(!newReviewIsOpen)}
+            className="w-[200px] md:w-[260px] h-[50px] capitalize text-xl border hover:text-white/25 duration-300"
+          >
             leave a review
           </Button>
         </div>
@@ -58,6 +64,19 @@ export const Reviews: FC<{
             );
           })}
         </div>
+      </div>
+
+      {/* new review form */}
+      <div
+        ref={newReviewRef}
+        className={`flex flex-col w-full h-full justify-center items-center duration-500 overflow-hidden *:my-1`}
+        style={{
+          height: newReviewIsOpen
+            ? `${newReviewRef?.current?.scrollHeight}px`
+            : "0",
+        }}
+      >
+        <WriteReview />
       </div>
 
       {/* list of reviews */}

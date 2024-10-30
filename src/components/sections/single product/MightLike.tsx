@@ -2,38 +2,36 @@
 import { FC, useRef } from "react";
 import SwiperCore from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useWindowSize } from "usehooks-ts";
 
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
-import { useWindowSize } from "usehooks-ts";
+import Link from "next/link";
 
-const slides = [
-  { src: "/static/Tactical Backpack.jpg", alt: "1" },
-  { src: "/static/Tactical Backpack.jpg", alt: "2" },
-  { src: "/static/Tactical Backpack.jpg", alt: "3" },
-  { src: "/static/Tactical Backpack.jpg", alt: "4" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-  { src: "/static/Tactical Backpack.jpg", alt: "5" },
-];
-
-// TODO: fetch items
-export const MightLike: FC = () => {
+export const MightLike: FC<{ similarProducts: any[] }> = ({
+  similarProducts,
+}) => {
   const swiperRef = useRef<SwiperCore | null>();
   const { width } = useWindowSize();
 
   const swiperOptions = {
-    slidesPerView: width < 600 ? 1 : width < 1000 ? 3 : 5,
+    slidesPerView:
+      width < 600
+        ? 1
+        : similarProducts?.length < 3
+        ? similarProducts?.length
+        : width < 1000
+        ? 3
+        : 5,
+    navigation: similarProducts?.length >= 5,
     spaceBetween: 30,
     className: "w-full",
     onSwiper: (swiper: any) => {
       swiperRef.current = swiper;
     },
   };
+
+  if (!similarProducts || similarProducts.length < 1) return;
 
   return (
     <div className="w-full flex flex-col text-white bg-black py-12">
@@ -51,9 +49,19 @@ export const MightLike: FC = () => {
         </div>
 
         <Swiper {...swiperOptions}>
-          {slides.map((s, i) => (
-            <SwiperSlide key={`${s.alt}_${i}`}>
-              <img src={`${s.src}`} alt={`${s.alt}`} />
+          {similarProducts?.map((s, i) => (
+            <SwiperSlide key={`${s?.name}_${i}`}>
+              <Link
+                href={`/shop/${s?.publicId}`}
+                className="w-40 flex flex-col justify-center items-center"
+              >
+                <img
+                  src={`${s?.thumbnail}`}
+                  alt={`${s.name}`}
+                  className="aspect-square object-cover"
+                />
+                <h3 className="mt-3">{s?.name}</h3>
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>

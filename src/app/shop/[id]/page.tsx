@@ -1,5 +1,5 @@
 "use client";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -17,11 +17,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
   const dispatch = useAppDispatch();
   const currentLanguage = useAppSelector((st) => st.globals.language);
 
-  const {
-    data: product,
-    error,
-    isLoading,
-  } = useQuery({
+  const product = useQuery({
     queryKey: [params.id],
     queryFn: async () => {
       const response = await axios.get(`/api/shop/${params.id}`);
@@ -32,7 +28,20 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
     },
   });
 
-  if (isLoading)
+  const similarProducts = useQuery({
+    queryKey: [
+      product?.data?.category,
+      product?.data?.subCategory,
+      product?.data?.tags,
+    ],
+    queryFn: async () => {
+      const response = await axios.get(`/api/shop/${params.id}/similar`);
+
+      return response.data;
+    },
+  });
+
+  if (product.isLoading)
     return (
       <main className="w-full h-screen grid place-items-center pt-[164px] md:pt-[7.5rem] pb-2 bg-black">
         <div role="status">
@@ -57,7 +66,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
       </main>
     );
 
-  if (error) {
+  if (product.error) {
     return (
       <main className="w-full h-screen grid place-items-center pt-[164px] md:pt-[7.5rem] pb-2 bg-black">
         <div role="status">
@@ -87,7 +96,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
                 svg: breadcrumbIcon,
               },
               {
-                name: product?.name || "product's name",
+                name: product?.data.name || "product's name",
                 href: `/shop/${params.id}`,
                 svg: breadcrumbIcon,
               },
@@ -100,35 +109,35 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
           {/* pictures */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <ProductSlider
-              slides={product?.imageUrls || []}
-              description={product?.description[currentLanguage] || ""}
+              slides={product?.data.imageUrls || []}
+              description={product?.data.description[currentLanguage] || ""}
             />
           </div>
 
           {/* oderding information */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <MainInfo
-              name={product.name}
-              length={product.ratingLength || 0}
-              average={product.averageRating || 5}
-              discount={product.discount || 0}
-              price={product.price}
-              returnPolicy={product.returnPolicy}
-              specifications={product.specifications || []}
+              name={product.data.name}
+              length={product.data.ratingLength}
+              average={product.data.averageRating || 5}
+              discount={product.data.discount || 0}
+              price={product.data.price}
+              returnPolicy={product.data.returnPolicy}
+              specifications={product.data.specifications || []}
             />
           </div>
         </div>
 
         {/* reviews block */}
         <Reviews
-          length={product.ratingLength || 0}
-          average={product.averageRating || 5}
-          reviews={product.reviews || []}
+          length={product.data.ratingLength}
+          average={product.data.averageRating || 5}
+          reviews={product.data.reviews || []}
         />
       </main>
 
       {/* might like section */}
-      <MightLike />
+      <MightLike similarProducts={similarProducts.data} />
     </>
   );
 }

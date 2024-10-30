@@ -76,7 +76,7 @@ export const ProductInShop: React.FC<TProduct> = ({
             </div>
 
             {/* rating */}
-            <Rating length={ratingLength || 0} average={averageRating || 5} />
+            <Rating length={ratingLength} average={averageRating || 5} />
           </div>
         </div>
       </div>
