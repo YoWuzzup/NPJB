@@ -79,7 +79,7 @@ export async function GET(request: Request) {
 
     return NextResponse.json(withRating);
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching products: api/shop", error);
     return NextResponse.json(
       { error: "Failed to fetch products" },
       { status: 500 }

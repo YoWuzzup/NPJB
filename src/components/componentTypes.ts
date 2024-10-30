@@ -50,6 +50,6 @@ export type TInput = {
 } & PropsWithChildren;
 
 export type TRating = {
-  length: number;
   average: number;
+  length?: number;
 };

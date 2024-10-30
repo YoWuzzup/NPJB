@@ -24,18 +24,30 @@ export async function GET(
     }
 
     const productReviews = await reviews
-      .find({ product_id: product.publicId })
+      .find(
+        { product_id: product.publicId },
+        {
+          projection: {
+            _id: 0,
+          },
+        }
+      )
       .toArray();
 
     // Calculate the average rating
-    const ratingLength = product?.reviews?.length || 0;
+    const ratingLength = productReviews?.length || 0;
     const averageRating =
       product?.reviews && product?.reviews?.length > 0
         ? productReviews.reduce((sum, review) => sum + review.rating, 0) /
           productReviews.length
         : 5;
 
-    return NextResponse.json({ ...product, ratingLength, averageRating });
+    return NextResponse.json({
+      ...product,
+      reviews: productReviews,
+      ratingLength,
+      averageRating,
+    });
   } catch (error) {
     console.error("Error fetching product_id:", error);
     return NextResponse.json(

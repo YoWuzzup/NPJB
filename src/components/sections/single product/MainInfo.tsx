@@ -1,5 +1,6 @@
 "use client";
 import { FC, useRef, useState } from "react";
+import { useAppSelector } from "@/hooks/redux";
 
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
@@ -10,7 +11,6 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { useAppSelector } from "@/hooks/redux";
 
 export const MainInfo: FC<{
   name: string;
@@ -23,7 +23,16 @@ export const MainInfo: FC<{
     ZL: number;
   };
   returnPolicy: string;
-}> = ({ name, length, average, discount, price, returnPolicy }) => {
+  specifications: string[];
+}> = ({
+  name,
+  length,
+  average,
+  discount,
+  price,
+  returnPolicy,
+  specifications,
+}) => {
   const currency = useAppSelector((st) => st.globals.currency);
   const [productInfoIsOpen, setProductInfoIsOpen] = useState<boolean>(false);
   const [returnPolicyIsOpen, setRerurnPolicyIsOpen] = useState<boolean>(false);
@@ -140,16 +149,14 @@ export const MainInfo: FC<{
                 ? `${productRef.current?.scrollHeight}px`
                 : "0",
             }}
-            className={`text-base text-justify duration-300 overflow-hidden`}
+            className={`text-base text-justify duration-300 overflow-hidden capitalize *:my-1`}
           >
-            {/* TODO: specifications */}
-            I&apos;m a product detail. I&apos;m a great place to add more
-            information about your product such as sizing, material, care and
-            cleaning instructions. This is also a great space to write what
-            makes this product special and how your customers can benefit from
-            this item. Buyers like to know what they&apos;re getting before they
-            purchase, so give them as much information as possible so they can
-            buy with confidence and certainty.
+            {specifications &&
+              specifications.map((s, i) => (
+                <span key={`${s}_${i}`} className="block">
+                  {s}
+                </span>
+              ))}
           </p>
         </div>
 

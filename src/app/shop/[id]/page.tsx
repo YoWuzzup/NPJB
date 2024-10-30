@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -24,17 +24,11 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
   } = useQuery({
     queryKey: [params.id],
     queryFn: async () => {
-      try {
-        const response = await axios.get(`/api/shop/${params.id}`);
+      const response = await axios.get(`/api/shop/${params.id}`);
 
-        dispatch(addSingleProduct(response.data));
+      dispatch(addSingleProduct(response.data));
 
-        return response.data;
-      } catch (error) {
-        dispatch(addSingleProduct(null));
-
-        throw new Error("Failed to fetch product");
-      }
+      return response.data;
     },
   });
 
@@ -106,8 +100,8 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
           {/* pictures */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <ProductSlider
-              slides={product.imageUrls}
-              description={product.description[currentLanguage]}
+              slides={product?.imageUrls || []}
+              description={product?.description[currentLanguage] || ""}
             />
           </div>
 
@@ -120,12 +114,17 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
               discount={product.discount || 0}
               price={product.price}
               returnPolicy={product.returnPolicy}
+              specifications={product.specifications || []}
             />
           </div>
         </div>
 
         {/* reviews block */}
-        <Reviews />
+        <Reviews
+          length={product.ratingLength || 0}
+          average={product.averageRating || 5}
+          reviews={product.reviews || []}
+        />
       </main>
 
       {/* might like section */}

@@ -16,7 +16,7 @@ export default function Shop() {
   const searchParams = params.get("search");
   const categoryParams = params.get("category");
 
-  const { error, isLoading } = useQuery({
+  const { isError, isLoading } = useQuery({
     queryKey: [searchParams, categoryParams],
     queryFn: async () => {
       const queryParams = {
@@ -24,9 +24,7 @@ export default function Shop() {
         category: categoryParams,
       };
 
-      const response = await axios.get("/api/shop", {
-        params: { ...queryParams },
-      });
+      const response = await axios.get("/api/shop", { params: queryParams });
 
       dispatch(addProducts(response.data));
 
@@ -48,7 +46,7 @@ export default function Shop() {
 
       {/* products' side */}
       <div className="flex-1">
-        <ShopResultSection error={error} isLoading={isLoading} />
+        <ShopResultSection isError={isError} isLoading={isLoading} />
       </div>
     </main>
   );
