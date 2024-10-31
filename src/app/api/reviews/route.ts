@@ -2,20 +2,21 @@ import { NextResponse } from "next/server";
 import { Collection, Db, MongoClient } from "mongodb";
 
 import clientPromise from "@/lib/mongodb";
-import { TProduct } from "@/lib/types";
+import { TReview } from "@/components/componentTypes";
 
-export async function GET() {
+export async function POST(request: Request) {
   try {
     const client: MongoClient = await clientPromise;
+
     const db: Db = client.db("products");
-    const collection: Collection<TProduct> = db.collection("products");
+    const reviews: Collection<TReview> = db.collection("reviews");
 
-    const products = await collection.find({}).toArray();
-    console.log("GET:", products);
+    const data = await request.json();
+    console.log("Received data:", data);
 
-    return NextResponse.json(products);
+    return NextResponse.json("");
   } catch (error) {
-    console.error("Error fetching products: api/products", error);
+    console.error("Error fetching products: api/shop", error);
     return NextResponse.json(
       { error: "Failed to fetch products" },
       { status: 500 }

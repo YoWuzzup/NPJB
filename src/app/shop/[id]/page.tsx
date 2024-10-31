@@ -117,22 +117,22 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
           {/* oderding information */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <MainInfo
-              name={product.data.name}
-              length={product.data.ratingLength}
-              average={product.data.averageRating || 5}
-              discount={product.data.discount || 0}
-              price={product.data.price}
-              returnPolicy={product.data.returnPolicy}
-              specifications={product.data.specifications || []}
+              name={product?.data?.name}
+              length={product?.data?.ratingLength}
+              average={product?.data?.averageRating || 5}
+              discount={product?.data?.discount || 0}
+              price={product?.data?.price}
+              returnPolicy={product?.data?.returnPolicy}
+              specifications={product?.data?.specifications || []}
             />
           </div>
         </div>
 
         {/* reviews block */}
         <Reviews
-          length={product.data.ratingLength}
-          average={product.data.averageRating || 5}
-          reviews={product.data.reviews || []}
+          length={product?.data?.ratingLength}
+          average={product?.data?.averageRating || 5}
+          reviews={product?.data?.reviews || []}
         />
       </main>
 
