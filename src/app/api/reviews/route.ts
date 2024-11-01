@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     // insert new review to the db
     await reviews.insertOne(newReview);
 
-    return NextResponse.json({ success: true, review: newReview });
+    return NextResponse.json({ success: true }, { status: 201 });
   } catch (error) {
     console.error("Error posting new review: api/reviews", error);
     return NextResponse.json(

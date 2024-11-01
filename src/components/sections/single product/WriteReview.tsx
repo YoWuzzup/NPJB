@@ -4,9 +4,11 @@ import axios from "axios";
 
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
+import { Spinner } from "@/components/common/Spinner";
 
 export const WriteReview: FC = () => {
   const { id } = useParams();
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const [newReview, setNewReview] = useState({
     author: "",
@@ -47,6 +49,8 @@ export const WriteReview: FC = () => {
   };
 
   const handleSend = async () => {
+    setIsDisabled(true);
+
     const newErrors = {
       author: newReview.author ? null : new Error("Author is required"),
       message: newReview.message ? null : new Error("Message is required"),
@@ -56,10 +60,19 @@ export const WriteReview: FC = () => {
     setErrors(newErrors);
 
     if (Object.values(newErrors).some((er) => er !== null)) {
-      return;
+      return setIsDisabled(false);
     }
 
-    await axios.post(`/api/reviews`, newReview);
+    await axios.post(`/api/reviews`, newReview).finally(() => {
+      setIsDisabled(false);
+      setNewReview({
+        author: "",
+        header: "",
+        message: "",
+        rating: 5,
+        product_id: id,
+      });
+    });
   };
 
   return (
@@ -181,11 +194,12 @@ export const WriteReview: FC = () => {
       <div>
         <Button
           className={`w-full md:w-2/6 bg-transparent text-lg md:text-2xl text-white/100 hover:text-white/60 py-2 px-3 outline-none border border-white/100 hover:border-white/60 duration-300
-              uppercase`}
+              uppercase cursor-pointer grid place-items-center disabled:cursor-wait`}
           type="button"
           onClick={handleSend}
+          disabled={isDisabled}
         >
-          send your review
+          {isDisabled ? <Spinner /> : <span>send your review</span>}
         </Button>
       </div>
     </div>
