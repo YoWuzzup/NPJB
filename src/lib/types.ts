@@ -1,3 +1,16 @@
+export type TReview = {
+  rating: number;
+  date: Date | string;
+  product_id: string;
+  header: string;
+  message: string;
+  publicId: string;
+  author: string;
+  liked: number;
+};
+
+export type TReviewArray = TReview[];
+
 export type TProduct = {
   name?: string;
   publicId?: string;
@@ -16,7 +29,7 @@ export type TProduct = {
   specifications?: string[];
   returnPolicy?: string;
   contents?: string[];
-  reviews?: TReviewArray;
+  reviews: TReviewArray | [];
   manufacturer?: string;
   category?: string[];
   subCategory?: string[];
@@ -32,16 +45,3 @@ export type TProduct = {
 };
 
 export type TProductArray = TProduct[];
-
-export type TReview = {
-  rating: number;
-  date: Date | string;
-  product_id: string;
-  header: string;
-  message: string;
-  publicId: string;
-  author: string;
-  liked: number;
-};
-
-export type TReviewArray = TReview[];

@@ -96,7 +96,7 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
                 svg: breadcrumbIcon,
               },
               {
-                name: product?.data.name || "product's name",
+                name: product?.data?.name || "product's name",
                 href: `/shop/${params.id}`,
                 svg: breadcrumbIcon,
               },
@@ -109,8 +109,8 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
           {/* pictures */}
           <div className="w-full md:w-1/2 flex flex-col justify-center items-center gap-8 text-white">
             <ProductSlider
-              slides={product?.data.imageUrls || []}
-              description={product?.data.description[currentLanguage] || ""}
+              slides={product?.data?.imageUrls || []}
+              description={product?.data?.description[currentLanguage] || ""}
             />
           </div>
 
@@ -132,7 +132,6 @@ export default function SingleProduct({ params }: { params: { id: string } }) {
         <Reviews
           length={product?.data?.ratingLength}
           average={product?.data?.averageRating || 5}
-          reviews={product?.data?.reviews || []}
         />
       </main>
 

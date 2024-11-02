@@ -1,19 +1,39 @@
 import { FC, useRef, useState } from "react";
+import axios from "axios";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import { Rating } from "@/components/common/Rating";
 import { Button } from "@/components/common/Button";
 
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import { TReviewArray } from "@/lib/types";
 import { WriteReview } from "./WriteReview";
+import { updateReviews } from "@/redux/slices/singleProduct";
+import { TReview } from "@/lib/types";
 
 export const Reviews: FC<{
   length: number;
   average: number;
-  reviews: TReviewArray;
-}> = ({ length, average, reviews }) => {
+}> = ({ length, average }) => {
+  const dispatch = useAppDispatch();
+  const reviews = useAppSelector((st: any) => st?.singleProduct?.reviews || []);
   const [newReviewIsOpen, setNewReviewIsOpen] = useState(false);
   const newReviewRef = useRef<HTMLDivElement>(null);
+
+  const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const id = e.currentTarget.name;
+    const currentLikes =
+      reviews?.find((r: TReview) => r.publicId === id)?.liked || 0;
+
+    try {
+      const response = await axios.patch(`/api/reviews/${id}`, {
+        liked: currentLikes + 1,
+      });
+
+      dispatch(updateReviews(response.data));
+    } catch (error) {
+      console.error("Error updating like status:", error);
+    }
+  };
 
   return (
     <div className="w-full flex flex-col text-white">
@@ -38,7 +58,7 @@ export const Reviews: FC<{
         <div className="w-full md:w-1/2 flex flex-col-reverse items-start justify-center gap-4">
           {[1, 2, 3, 4, 5].map((n, i) => {
             const amount = reviews.reduce(
-              (acc, curr) => (curr.rating === n ? acc + 1 : acc),
+              (acc: any, curr: any) => (curr?.rating === n ? acc + 1 : acc),
               0
             );
             const lineWidth = length > 0 ? `${(amount / length) * 100}%` : "0%";
@@ -81,44 +101,39 @@ export const Reviews: FC<{
 
       {/* list of reviews */}
       <div className="flex flex-col w-full justify-center items-center">
-        {reviews.map((r, i) => {
-          const date = typeof r.date === "string" ? new Date(r.date) : r.date;
-          const year = date.getFullYear();
-          const month = date.getMonth() + 1;
-          const day = date.getDate();
-          const fullDate = `${day} / ${month} / ${year}`;
+        {reviews.map((r: TReview) => {
+          const date = new Date(r.date);
+          const fullDate = `${date.getDate()} / ${
+            date.getMonth() + 1
+          } / ${date.getFullYear()}`;
 
           return (
             <div
-              key={`${r}_${i}`}
+              key={r.publicId}
               className="w-full border-b border-b-white/60 py-6 flex flex-col gap-5"
             >
-              <div className="w-full flex flex-row items-start gap-7 capitalize">
+              <div className="flex items-start gap-7 capitalize">
                 {r.author || "unknown author"}
-                <span className="capitalize grow relative before:absolute before:content-[''] before:-left-3 before:top-1/2 before:-translate-y-1/2 before:w-[5px] before:h-[5px] before:rounded-full before:bg-white">
+                <span className="capitalize relative before:w-[5px] before:h-[5px] before:bg-white">
                   {fullDate}
                 </span>
               </div>
 
               <Rating average={r.rating} />
+              <h3 className="font-bold text-xl mb-4">{r.header}</h3>
+              <p className="text-justify">{r.message}</p>
 
-              <div className="w-full">
-                <h3 className="font-bold text-xl mb-4 first-letter:uppercase">
-                  {r.header}
-                </h3>
-                <p className="first-letter:uppercase text-justify">
-                  {r.message}
-                </p>
-              </div>
-
-              {/* TODO: likes button */}
-              <div className="flex flex-row items-center gap-5">
+              <Button
+                onClick={handleLike}
+                name={r.publicId}
+                className="flex items-center gap-5"
+              >
                 Was this helpful?
-                <span className="flex items-center cursor-pointer">
+                <span className="flex items-center">
                   <ThumbUpOffAltIcon className="mr-3" />
-                  Yes {r.liked ? `( ${r.liked} )` : ``}
+                  Yes {r.liked ? `( ${r.liked} )` : ""}
                 </span>
-              </div>
+              </Button>
             </div>
           );
         })}
