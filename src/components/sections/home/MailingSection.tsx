@@ -2,11 +2,12 @@
 import { ChangeEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
+import axios from "axios";
 
 import { Input } from "@/components/common/Input";
+import { Button } from "@/components/common/Button";
 
 import { validateEmail } from "@/lib/utils";
-import { Button } from "@/components/common/Button";
 
 export const MailingSection: React.FC = () => {
   const email = useAppSelector((st) => st.subscribeEmail);
@@ -19,13 +20,24 @@ export const MailingSection: React.FC = () => {
     dispatch(changeSubscribeEmail(e.target.value));
   };
 
-  const handleClick = () => {
-    if (!validateEmail(email))
-      return setError(
-        new Error("Enter an email address like example@mysite.com.")
-      );
+  const handleClick = async () => {
+    if (!validateEmail(email)) {
+      setError(new Error("Enter an email address like example@mysite.com."));
+      return;
+    }
 
-    //   TODO: send a request
+    try {
+      await axios.post("/api/email", { email });
+      setError(null);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        const message =
+          err.response?.data?.error || "Failed to subscribe. Please try again.";
+        setError(new Error(message));
+      } else {
+        setError(new Error("An unexpected error occurred. Please try again."));
+      }
+    }
   };
 
   return (
