@@ -35,7 +35,7 @@ export const ProductOnSale: React.FC<TProductOnSale> = ({
 
           <div
             className={`group-hover/productonsale:opacity-0 opacity-100 w-full text-center flex flex-col justify-center 
-            items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/productonsale:z-0 z-10
+            items-center absolute top-1/2 duration-300 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/productonsale:z-0 z-10
             px-5`}
           >
             <div

@@ -6,6 +6,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 
 export const ImagesSection: React.FC = () => {
   const targetSectionRef = useRef<HTMLDivElement>(null);
+  const caterories = ["backpacks", "medkits", "backpacks"];
 
   const handleClick = () => {
     if (targetSectionRef.current) {
@@ -69,12 +70,12 @@ export const ImagesSection: React.FC = () => {
           className="h-full w-full bg-cover bg-center scale-100 group-hover/fourth:scale-110 duration-500"
           style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
-        <Link href={"#"}>
+        <Link href={`/shop?category=${caterories[0]}`}>
           <div
             className="w-full h-full absolute top-0 left-0 bg-black/0 group-hover/fourth:bg-black/70 duration-500 
           place-content-center text-center uppercase text-white/0 group-hover/fourth:text-white/100 font-bold text-2xl"
           >
-            backpacks
+            {caterories[0]}
           </div>
         </Link>
       </div>
@@ -85,12 +86,12 @@ export const ImagesSection: React.FC = () => {
           className="h-full w-full bg-cover bg-center scale-100 group-hover/fifth:scale-110 duration-500"
           style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
-        <Link href={"#"}>
+        <Link href={`/shop?category=${caterories[1]}`}>
           <div
             className="w-full h-full absolute top-0 left-0 bg-black/0 group-hover/fifth:bg-black/70 duration-500 
           place-content-center text-center uppercase text-white/0 group-hover/fifth:text-white/100 font-bold text-2xl"
           >
-            medkits
+            {caterories[1]}
           </div>
         </Link>
       </div>
@@ -101,12 +102,12 @@ export const ImagesSection: React.FC = () => {
           className="h-full w-full bg-cover bg-center scale-100 group-hover/sixth:scale-110 duration-500"
           style={{ backgroundImage: "url('/static/Tactical-Backpack.jpg')" }}
         />
-        <Link href={"#"}>
+        <Link href={`/shop?category=${caterories[2]}`}>
           <div
             className="w-full h-full absolute top-0 left-0 bg-black/0 group-hover/sixth:bg-black/70 duration-500 
           place-content-center text-center uppercase text-white/0 group-hover/sixth:text-white/100 font-bold text-2xl"
           >
-            backpacks
+            {caterories[2]}
           </div>
         </Link>
       </div>
