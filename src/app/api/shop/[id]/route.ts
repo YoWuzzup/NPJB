@@ -16,7 +16,7 @@ export async function GET(
     const db: Db = client.db("products");
     const product = await db
       .collection<TProduct>("products")
-      .findOne({ publicId });
+      .findOne({ publicId }, { projection: { _id: 0 } });
     const reviews: Collection<TReview> = db.collection("reviews");
 
     if (!product) {

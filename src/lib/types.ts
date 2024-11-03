@@ -11,6 +11,8 @@ export type TReview = {
 
 export type TReviewArray = TReview[];
 
+export type TCart = { publicId: string; quantity: number }[];
+
 export type TProduct = {
   name?: string;
   publicId?: string;

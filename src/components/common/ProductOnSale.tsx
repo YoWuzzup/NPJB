@@ -10,21 +10,21 @@ export const ProductOnSale: React.FC<TProductOnSale> = ({
   discount,
   image,
   currency,
-  _id,
+  id,
 }) => {
   const priceWithDiscount = price - price * (discount / 100) || price;
 
   return (
-    <Link href={`shop/${_id || ""}`}>
+    <Link href={`shop/${id || ""}`}>
       <div className="group/productonsale border border-white/25">
         {/* image */}
         <div
-          className="w-full h-[306px] bg-blend-multiply bg-center bg-cover"
+          className="w-full min-h-[306px] bg-blend-multiply bg-center bg-cover"
           style={{ backgroundImage: `url(${image})` }}
         ></div>
 
         {/* bottom info */}
-        <div className="relative h-32">
+        <div className="relative h-32 my-5">
           <Button
             className={`group-hover/productonsale:opacity-100 opacity-0 w-[210px] border-white border-2 px-10 py-2 mb-10 
             text-white/100 text-xl capitalize duration-300 hover:text-white/75 absolute top-1/2 left-1/2 
@@ -35,11 +35,12 @@ export const ProductOnSale: React.FC<TProductOnSale> = ({
 
           <div
             className={`group-hover/productonsale:opacity-0 opacity-100 w-full text-center flex flex-col justify-center 
-            items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/productonsale:z-0 z-10`}
+            items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover/productonsale:z-0 z-10
+            px-5`}
           >
             <div
-              className="uppercase relative text-3xl pb-4 mb-4 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:content-[''] 
-          after:h-[2px] after:w-5 after:bg-white"
+              className="uppercase relative text-lg pb-4 mb-4 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:absolute after:content-[''] 
+              after:h-[2px] after:w-5 after:bg-white"
             >
               {name}
             </div>

@@ -26,7 +26,7 @@ export const ImagesSection: React.FC = () => {
           </h1>
 
           <Link
-            href={"#"}
+            href={"/shop"}
             className="border-white border-2 px-10 py-2 mb-10 text-white text-lg sm:text-2xl uppercase duration-300 hover:text-black bg-white/0 hover:bg-white/100"
           >
             shop now
@@ -49,7 +49,7 @@ export const ImagesSection: React.FC = () => {
           </h1>
 
           <Link
-            href={"#"}
+            href={"/shop"}
             className="border-white border-2 px-10 py-2 mb-10 text-white text-lg sm:text-2xl uppercase duration-300 hover:text-black bg-white/0 hover:bg-white/100"
           >
             shop now

@@ -17,11 +17,12 @@ export async function GET(request: Request) {
     const parameters = new URL(request.url);
     const search = parameters.searchParams.get("search") || "";
     const category = parameters.searchParams.get("category") || "";
+    const discount = parameters.searchParams.get("discount") || 0;
 
     // Optional filters based on query parameters
     const filter: any = {};
 
-    // If the search parameter is present, add an $or condition to search across multiple fields
+    // add search to the filter
     if (search) {
       const seachStringRegex = new RegExp(search, "i");
       filter.$or = [
@@ -31,9 +32,16 @@ export async function GET(request: Request) {
       ];
     }
 
-    // If the category parameter is present, match it with any of the specified fields
+    //  add category to the filter
     if (category) {
       filter.category = { $in: [category] };
+    }
+
+    //  add discount to the filter
+    if (discount) {
+      const parsed = parseInt(discount);
+
+      filter.discount = { $gt: parsed };
     }
 
     // Fetch all products with the specified fields

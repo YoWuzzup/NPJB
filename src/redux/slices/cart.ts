@@ -1,9 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ObjectId } from "mongodb";
+import { TCart } from "@/lib/types";
 
-type Tcart = { _id: ObjectId }[];
-
-const initialState: Tcart = [];
+const initialState: TCart = [];
 
 const cartSlice = createSlice({
   name: "cart",
@@ -12,9 +10,27 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       return [...state, action.payload];
     },
+    changeItemAddQuantity(state, action) {
+      const updatedItem = state.map((i) =>
+        i.publicId === action.payload.publicId
+          ? { ...i, quantity: i.quantity + action.payload.quantity }
+          : i
+      );
+
+      return updatedItem;
+    },
+    changeItemMinusQuantity(state, action) {
+      const updatedItem = state.map((i) =>
+        i.publicId === action.payload.publicId
+          ? { ...i, quantity: i.quantity - action.payload.quantity }
+          : i
+      );
+
+      return updatedItem;
+    },
     removeFromCart(state, action) {
       const filteredCart = state.filter(
-        (item) => item._id !== action.payload._id
+        (item) => item.publicId !== action.payload.publicId
       );
 
       return filteredCart;
@@ -22,5 +38,10 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  changeItemAddQuantity,
+  changeItemMinusQuantity,
+} = cartSlice.actions;
 export default cartSlice.reducer;

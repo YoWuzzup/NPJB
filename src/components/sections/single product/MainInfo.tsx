@@ -1,6 +1,9 @@
 "use client";
 import { FC, useRef, useState } from "react";
-import { useAppSelector } from "@/hooks/redux";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { addToCart, changeItemAddQuantity } from "@/redux/slices/cart";
 
 import { Button } from "@/components/common/Button";
 import { Input } from "@/components/common/Input";
@@ -8,7 +11,6 @@ import { Rating } from "@/components/common/Rating";
 
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
@@ -33,7 +35,10 @@ export const MainInfo: FC<{
   returnPolicy,
   specifications,
 }) => {
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((st) => st.cart);
   const currency = useAppSelector((st) => st.globals.currency);
+  const { id } = useParams();
   const [productInfoIsOpen, setProductInfoIsOpen] = useState<boolean>(false);
   const [returnPolicyIsOpen, setRerurnPolicyIsOpen] = useState<boolean>(false);
   const [quantity, setQuantity] = useState(1);
@@ -45,6 +50,16 @@ export const MainInfo: FC<{
     priceConverted -
     priceConverted * (discount / 100)
   ).toFixed(2);
+
+  const handleAddToCart = () => {
+    // check if item is already in the cart
+    const isInCart = cart.find((i) => i.publicId === id);
+
+    if (isInCart)
+      return dispatch(changeItemAddQuantity({ publicId: id, quantity }));
+
+    dispatch(addToCart({ publicId: id, quantity }));
+  };
 
   const toggleProductInfo = () => {
     setProductInfoIsOpen((prev) => !prev);
@@ -121,14 +136,14 @@ export const MainInfo: FC<{
 
       {/* buttons */}
       <div className="flex flex-row flex-wrap w-full gap-4 mb-5">
-        <Button className="w-[260px] h-[50px] capitalize text-xl border grow hover:text-white/25 duration-300">
+        <Button
+          className="w-[260px] h-[50px] capitalize text-xl border grow hover:text-white/25 duration-300"
+          onClick={handleAddToCart}
+        >
           add to cart
         </Button>
-        <Button className="w-full md:w-[50px] h-[50px] border">
-          <FavoriteBorderIcon />
-        </Button>
         <Button className="w-full h-[50px] capitalize text-xl text-black border bg-white hover:bg-white/60 duration-300">
-          buy now
+          <Link href={`/cart`}>buy now</Link>
         </Button>
       </div>
 

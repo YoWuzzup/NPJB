@@ -23,7 +23,7 @@ export type TProductOnSale = {
   discount: number;
   image: string;
   currency: string;
-  _id: ObjectId | string;
+  id: ObjectId | string;
 };
 
 export type TBreadcrumb = {

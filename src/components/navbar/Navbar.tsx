@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
       {/* cart */}
       <div className="group/cart">
         <Link
-          href={"#"}
+          href={"/cart"}
           className="flex flex-nowrap flex-row gap-1 duration-300 text-white/65 group-hover/cart:text-white/100"
         >
           <ShoppingCartOutlinedIcon />
