@@ -41,14 +41,7 @@ export async function POST(request: Request) {
       })
       .toArray();
 
-    // attach quantities to the fetched products
-    const cartData = cartItems.map((item) => {
-      const product = products.find((p) => p.publicId === item.publicId);
-
-      return { ...item, quantity: product?.quantity };
-    });
-
-    return NextResponse.json(cartData);
+    return NextResponse.json(cartItems);
   } catch (error) {
     console.error("Error fetching cart items: api/cart", error);
     return NextResponse.json(
