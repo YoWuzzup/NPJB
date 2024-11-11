@@ -11,6 +11,7 @@ import {
   changeItemMinusQuantity,
   removeFromCart,
 } from "@/redux/slices/cart";
+import { TProduct } from "@/lib/types";
 
 export default function Cart() {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ export default function Cart() {
   const deliveryFee: number = 0;
   const taxRate: number = 0;
 
-  const { isError, isLoading, data } = useQuery({
+  const { isError, isLoading, data } = useQuery<TProduct[]>({
     queryKey: ["cart", cart],
     queryFn: async () => {
       const response = await axios.post("/api/cart", { products: cart });
@@ -33,7 +34,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (data) {
-      const newSubtotal = data.reduce((acc: any, prod: any) => {
+      const newSubtotal = data.reduce((acc, prod) => {
         const quantity =
           cart.find((item) => item.publicId === prod.publicId)?.quantity || 0;
         const price = prod.price[currency] / 100;
@@ -118,7 +119,7 @@ export default function Cart() {
           </h3>
           <ul className="w-full flex flex-col">
             {data && data.length > 0 ? (
-              data?.map((prod: any, i: number) => {
+              data?.map((prod, i: number) => {
                 const quantity =
                   cart.find((item) => item.publicId === prod.publicId)
                     ?.quantity || 0;
@@ -170,11 +171,15 @@ export default function Cart() {
                       className="group/quantity h-fit flex flex-nowrap flex-row border border-white/60 hover:border-white/100 duration-150 
                     *:aspect-square *:w-7 *:grid *:place-items-center cursor-pointer"
                     >
-                      <span onClick={() => handleSubtraction(prod?.publicId)}>
+                      <span
+                        onClick={() => handleSubtraction(prod?.publicId || "")}
+                      >
                         -
                       </span>
                       <span>{quantity}</span>
-                      <span onClick={() => handleAddition(prod?.publicId)}>
+                      <span
+                        onClick={() => handleAddition(prod?.publicId || "")}
+                      >
                         +
                       </span>
                     </div>
@@ -185,7 +190,9 @@ export default function Cart() {
 
                     <div
                       className="h-fit cursor-pointer"
-                      onClick={() => handleRemove({ publicId: prod.publicId })}
+                      onClick={() =>
+                        handleRemove({ publicId: prod.publicId || "" })
+                      }
                     >
                       <DeleteForeverIcon />
                     </div>

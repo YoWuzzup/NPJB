@@ -1,17 +1,16 @@
 "use client";
 
+import { Suspense } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-
 import { addProducts } from "@/redux/slices/products";
 import { useAppDispatch } from "@/hooks/redux";
-
 import { BreadcrumbsShopSection } from "@/components/sections/shop/BreadcrumbsShopSection";
 import { FilterSection } from "@/components/sections/shop/FilterSection";
 import { ShopResultSection } from "@/components/sections/shop/ShopResultSection";
 
-export default function Shop() {
+function ShopContent() {
   const dispatch = useAppDispatch();
   const params = useSearchParams();
   const searchParams = params.get("search");
@@ -50,5 +49,13 @@ export default function Shop() {
         <ShopResultSection isError={isError} isLoading={isLoading} />
       </div>
     </main>
+  );
+}
+
+export default function Shop() {
+  return (
+    <Suspense fallback={<div className="text-white">Loading shop data...</div>}>
+      <ShopContent />
+    </Suspense>
   );
 }

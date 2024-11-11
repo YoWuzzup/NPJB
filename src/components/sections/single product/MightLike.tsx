@@ -7,8 +7,9 @@ import { useWindowSize } from "usehooks-ts";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Link from "next/link";
+import { TProductArray } from "@/lib/types";
 
-export const MightLike: FC<{ similarProducts: any[] }> = ({
+export const MightLike: FC<{ similarProducts: TProductArray }> = ({
   similarProducts,
 }) => {
   const swiperRef = useRef<SwiperCore | null>();
@@ -26,7 +27,7 @@ export const MightLike: FC<{ similarProducts: any[] }> = ({
     navigation: similarProducts?.length >= 5,
     spaceBetween: 30,
     className: "w-full",
-    onSwiper: (swiper: any) => {
+    onSwiper: (swiper: SwiperCore | null | undefined) => {
       swiperRef.current = swiper;
     },
   };

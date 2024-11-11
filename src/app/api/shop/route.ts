@@ -1,11 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Collection, Db, MongoClient } from "mongodb";
 
 import clientPromise from "@/lib/mongodb";
 import { TProduct } from "@/lib/types";
 import { TReview } from "@/components/componentTypes";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+
   try {
     const client: MongoClient = await clientPromise;
 
@@ -14,15 +16,14 @@ export async function GET(request: Request) {
     const reviews: Collection<TReview> = db.collection("reviews");
 
     // Parse the request URL to get query parameters
-    const parameters = new URL(request.url);
-    const search = parameters.searchParams.get("search") || "";
-    const category = parameters.searchParams.get("category") || "";
-    const discount = parameters.searchParams.get("discount") || 0;
+    const search = searchParams.get("search") || "";
+    const category = searchParams.get("category") || "";
+    const discount = searchParams.get("discount") || 0;
 
     // Optional filters based on query parameters
-    const filter: any = {};
+    const filter: Record<string, unknown> = {};
 
-    // add search to the filter
+    // Add search to the filter
     if (search) {
       const seachStringRegex = new RegExp(search, "i");
       filter.$or = [
@@ -32,15 +33,14 @@ export async function GET(request: Request) {
       ];
     }
 
-    //  add category to the filter
+    // Add category to the filter
     if (category) {
       filter.category = { $in: [category] };
     }
 
-    //  add discount to the filter
+    // Add discount to the filter
     if (discount) {
       const parsed = parseInt(discount);
-
       filter.discount = { $gt: parsed };
     }
 

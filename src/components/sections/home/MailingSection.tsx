@@ -1,12 +1,11 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import axios from "axios";
 
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 
-import { validateEmail } from "@/lib/utils";
 import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 
 export const MailingSection: React.FC = () => {

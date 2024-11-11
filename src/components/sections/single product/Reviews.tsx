@@ -15,7 +15,7 @@ export const Reviews: FC<{
   average: number;
 }> = ({ length, average }) => {
   const dispatch = useAppDispatch();
-  const reviews = useAppSelector((st: any) => st?.singleProduct?.reviews || []);
+  const reviews = useAppSelector((st) => st?.singleProduct?.reviews || []);
   const [newReviewIsOpen, setNewReviewIsOpen] = useState(false);
   const newReviewRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +58,7 @@ export const Reviews: FC<{
         <div className="w-full md:w-1/2 flex flex-col-reverse items-start justify-center gap-4">
           {[1, 2, 3, 4, 5].map((n, i) => {
             const amount = reviews.reduce(
-              (acc: any, curr: any) => (curr?.rating === n ? acc + 1 : acc),
+              (acc, curr) => (curr?.rating === n ? acc + 1 : acc),
               0
             );
             const lineWidth = length > 0 ? `${(amount / length) * 100}%` : "0%";
