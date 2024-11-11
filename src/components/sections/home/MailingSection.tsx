@@ -1,11 +1,12 @@
 "use client";
 import { ChangeEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 import axios from "axios";
 
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
+
+import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 
 import { validateEmail } from "@/lib/utils";
 
