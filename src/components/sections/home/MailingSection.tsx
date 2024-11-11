@@ -6,29 +6,28 @@ import axios from "axios";
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 
-// import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
-
 import { validateEmail } from "@/lib/utils";
+import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 
 export const MailingSection: React.FC = () => {
-  // const email = useAppSelector((st) => st.subscribeEmail);
+  const email = useAppSelector((st) => st.subscribeEmail);
   const dispatch = useAppDispatch();
   const [error, setError] = useState<Error | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
 
-    // dispatch(changeSubscribeEmail(e.target.value));
+    dispatch(changeSubscribeEmail(e.target.value));
   };
 
   const handleClick = async () => {
-    // if (!validateEmail(email)) {
-    //   setError(new Error("Enter an email address like example@mysite.com."));
-    //   return;
-    // }
+    if (!validateEmail(email)) {
+      setError(new Error("Enter an email address like example@mysite.com."));
+      return;
+    }
 
     try {
-      // await axios.post("/api/email", { email });
+      await axios.post("/api/email", { email });
       setError(null);
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -68,7 +67,7 @@ export const MailingSection: React.FC = () => {
             className: `bg-transparent text-white mb-1 py-2 px-3 outline-none border ${
               error ? "border-rose-500" : "border-white/100"
             } hover:border-white/60 duration-300`,
-            // value: email || "",
+            value: email || "",
           }}
         >
           <div
