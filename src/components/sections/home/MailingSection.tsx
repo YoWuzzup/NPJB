@@ -1,15 +1,16 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import axios from "axios";
 
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 
 import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
+import { validateEmail } from "@/lib/utils";
 
 export const MailingSection: React.FC = () => {
-  // const email = useAppSelector((st) => st.subscribeEmail);
+  const email = useAppSelector((st) => st.subscribeEmail);
   const dispatch = useAppDispatch();
   const [error, setError] = useState<Error | null>(null);
 
@@ -20,13 +21,13 @@ export const MailingSection: React.FC = () => {
   };
 
   const handleClick = async () => {
-    // if (!validateEmail(email)) {
-    //   setError(new Error("Enter an email address like example@mysite.com."));
-    //   return;
-    // }
+    if (!validateEmail(email)) {
+      setError(new Error("Enter an email address like example@mysite.com."));
+      return;
+    }
 
     try {
-      // await axios.post("/api/email", { email });
+      await axios.post("/api/email", { email });
       setError(null);
     } catch (err) {
       if (axios.isAxiosError(err)) {
