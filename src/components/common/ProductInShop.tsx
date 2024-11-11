@@ -1,9 +1,10 @@
 import Link from "next/link";
 
-import { Rating } from "./Rating";
+import { useAppSelector } from "@/hooks/redux";
 
 import { TProduct } from "@/lib/types";
-import { useAppSelector } from "@/hooks/redux";
+
+import { Rating } from "./Rating";
 
 const ProductPriceDisplay: React.FC<{
   price: number | string;

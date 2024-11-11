@@ -1,14 +1,15 @@
 "use client";
 
 import axios from "axios";
+import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+
+import { addProducts } from "@/redux/slices/products";
+import { useAppDispatch } from "@/hooks/redux";
 
 import { BreadcrumbsShopSection } from "@/components/sections/shop/BreadcrumbsShopSection";
 import { FilterSection } from "@/components/sections/shop/FilterSection";
 import { ShopResultSection } from "@/components/sections/shop/ShopResultSection";
-import { useAppDispatch } from "@/hooks/redux";
-import { addProducts } from "@/redux/slices/products";
-import { useSearchParams } from "next/navigation";
 
 export default function Shop() {
   const dispatch = useAppDispatch();

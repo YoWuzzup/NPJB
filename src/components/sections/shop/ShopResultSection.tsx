@@ -18,7 +18,7 @@ export const ShopResultSection: React.FC<{
       {/* list of all fetched products */}
       <div className="w-5/6 sm:w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
         {isLoading ? (
-          [1, 2, 3].map((n, i) => <ProductSkeleton key={`${n}_${i}`} />)
+          [1, 2].map((n, i) => <ProductSkeleton key={`${n}_${i}`} />)
         ) : isError ? (
           <div className="w-full text-base md:text-2xl text-white">
             Something went wrong, try again later...
