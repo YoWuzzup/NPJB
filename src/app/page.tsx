@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AboutUsSection } from "@/components/sections/home/AboutUsSection";
 import { ContactSection } from "@/components/sections/home/ContactSection";
 import { ImagesSection } from "@/components/sections/home/ImagesSection";
-import { MailingSection } from "@/components/sections/home/MailingSection";
+// import { MailingSection } from "@/components/sections/home/MailingSection";
 import { OnsaleSection } from "@/components/sections/home/OnsaleSection";
 
 export default function Home() {
@@ -27,7 +27,7 @@ export default function Home() {
       {!isError && <OnsaleSection items={data} />}
       <AboutUsSection />
       <ContactSection />
-      <MailingSection />
+      {/* <MailingSection /> */}
     </main>
   );
 }
