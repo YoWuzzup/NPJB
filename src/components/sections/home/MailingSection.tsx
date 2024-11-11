@@ -7,7 +7,7 @@ import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 
 import { validateEmail } from "@/lib/utils";
-import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
+import { changeSubscribeEmail } from "../../../redux/slices/subscribeEmail";
 
 export const MailingSection: React.FC = () => {
   const email = useAppSelector((st) => st.subscribeEmail);
