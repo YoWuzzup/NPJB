@@ -6,18 +6,17 @@ import axios from "axios";
 import { Input } from "@/components/common/Input";
 import { Button } from "@/components/common/Button";
 
-import { changeSubscribeEmail } from "@/redux/slices/subscribeEmail";
 import { validateEmail } from "@/lib/utils";
 
 export const MailingSection: React.FC = () => {
-  const email = useAppSelector((st) => st.subscribeEmail);
+  const email = "";
   const dispatch = useAppDispatch();
   const [error, setError] = useState<Error | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
 
-    dispatch(changeSubscribeEmail(e.target.value));
+    // TODO: dispatch sub email state
   };
 
   const handleClick = async () => {

@@ -10,7 +10,6 @@ const config: Config = {
   ],
   theme: {
     color: {
-      ...colors,
       success: "#28a745",
       info: "#17a2b8",
       warning: "#ffc107",
@@ -20,6 +19,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        ...colors,
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
