@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+// import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import axios from "axios";
 
 import { Input } from "@/components/common/Input";
@@ -10,11 +10,12 @@ import { validateEmail } from "@/lib/utils";
 
 export const MailingSection: React.FC = () => {
   const email = "";
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [error, setError] = useState<Error | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
+    console.log(e);
 
     // TODO: dispatch sub email state
   };

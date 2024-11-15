@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  "@next/next/no-img-element": "off",
-};
+const nextConfig = {};
 
 export default nextConfig;

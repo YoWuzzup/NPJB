@@ -9,7 +9,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    color: {
+    colors: {
       success: "#28a745",
       info: "#17a2b8",
       warning: "#ffc107",
