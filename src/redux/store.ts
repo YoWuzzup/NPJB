@@ -7,6 +7,7 @@ import filtersReducer from "./slices/filters";
 import cartReducer from "./slices/cart";
 import contactFormReducer from "./slices/contactForm";
 import navSearchReducer from "./slices/navSearch";
+import subEmailReducer from "./slices/subEmail";
 
 export const makeStore = () => {
   return configureStore({
@@ -18,6 +19,7 @@ export const makeStore = () => {
       cart: cartReducer,
       contactForm: contactFormReducer,
       navSearch: navSearchReducer,
+      subEmail: subEmailReducer,
     },
   });
 };
